@@ -1,7 +1,8 @@
 {
   "files.associations": {
     "*.tcc": "cpp",
-    "numeric": "cpp"
+    "numeric": "cpp",
+    "vector": "cpp"
   },
   "python.formatting.provider": "yapf"
 }

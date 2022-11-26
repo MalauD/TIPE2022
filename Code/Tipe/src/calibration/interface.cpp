@@ -18,6 +18,16 @@ void CalInterface::start()
     Serial.println("Enter value to start calibration");
     while (!Serial.available())
         ;
-    auto val = Serial.parseInt();
-    Serial.println(val);
+
+    while (true)
+    {
+        int16_t val = Serial.parseInt();
+        if (val != 0)
+        {
+            Serial.print("Value: ");
+            Serial.println(val);
+            this->dataSet.appendDataPoint({val,
+                                           this->adc.one_shot_reading(0).getAdcValueByAddr(AdcAddr::ADC1)});
+        }
+    }
 }

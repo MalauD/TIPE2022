@@ -1,28 +1,40 @@
 #include "linear_regression.hpp"
 
-template <typename T> DataSet<T>::DataSet(DataPoint<T> *data, int size)
+template <typename T>
+DataSet<T>::DataSet()
 {
-    this->data = data;
-    this->size = size;
 }
 
-template <typename T> T DataSet<T>::accumulate(T (*func)(DataPoint<T>))
+template <typename T>
+T DataSet<T>::accumulate(T (*func)(DataPoint<T>))
 {
     T result = 0;
-    for (int i = 0; i < size; i++)
+    for (auto dataPoint : this->data)
     {
-        result += func(data[i]);
+        result += func(dataPoint);
     }
     return result;
 }
 
-template <typename T> LinearRegressionResult<T> linearRegression(DataSet<T> ds)
+template <typename T>
+void DataSet<T>::appendDataPoint(DataPoint<T> dataPoint)
 {
-    T sx = ds.accumulate([](DataPoint<T> dp) { return dp.x; });
-    T sy = ds.accumulate([](DataPoint<T> dp) { return dp.y; });
-    T sxx = ds.accumulate([](DataPoint<T> dp) { return dp.x * dp.x; });
-    T syy = ds.accumulate([](DataPoint<T> dp) { return dp.y * dp.y; });
-    T sxy = ds.accumulate([](DataPoint<T> dp) { return dp.x * dp.y; });
+    this->data.push_back(dataPoint);
+}
+
+template <typename T>
+LinearRegressionResult<T> linearRegression(DataSet<T> ds)
+{
+    T sx = ds.accumulate([](DataPoint<T> dp)
+                         { return dp.x; });
+    T sy = ds.accumulate([](DataPoint<T> dp)
+                         { return dp.y; });
+    T sxx = ds.accumulate([](DataPoint<T> dp)
+                          { return dp.x * dp.x; });
+    T syy = ds.accumulate([](DataPoint<T> dp)
+                          { return dp.y * dp.y; });
+    T sxy = ds.accumulate([](DataPoint<T> dp)
+                          { return dp.x * dp.y; });
 
     T slope = (ds.size * sxy - sx * sy) / (ds.size * sxx - sx * sx);
     T intercept = (sy - slope * sx) / ds.size;
