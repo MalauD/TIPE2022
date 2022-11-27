@@ -6,7 +6,7 @@
 class CalInterface
 {
   AdcMux adc;
-  DataSet<int16_t> dataSet;
+  DataSet<float> dataSet;
 
 public:
   CalInterface() : adc(AdcMux()){};
