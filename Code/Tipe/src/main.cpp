@@ -1,12 +1,12 @@
-#include "./calibration/interface.hpp"
+#include "manager.hpp"
 #include <Arduino.h>
 
-CalInterface interface;
+Manager manager;
 
 void setup()
 {
     Serial.begin(115200);
-    interface.start();
+    manager.run();
 }
 
 void loop()
