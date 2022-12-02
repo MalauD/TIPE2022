@@ -19,7 +19,7 @@ int16_t AdcMuxReading::getAdcValueByAddr(AdcAddr addr)
 float AdcMuxReading::getAdcValueByAddrInVolts(AdcAddr addr)
 {
     float fsRange;
-    switch (this->gain)
+    switch (gain)
     {
     case GAIN_TWOTHIRDS:
         fsRange = 6.144f;
@@ -42,25 +42,25 @@ float AdcMuxReading::getAdcValueByAddrInVolts(AdcAddr addr)
     default:
         fsRange = 0.0f;
     }
-    return this->getAdcValueByAddr(addr) * (fsRange / 32768);
+    return getAdcValueByAddr(addr) * (fsRange / 32768);
 }
 
 AdcMuxReading::AdcMuxReading(int16_t adc1, int16_t adc2, int16_t adc3, int16_t adc4, adsGain_t gain)
 {
-    this->adc = adc1;
-    this->adc |= (int64_t)adc2 << 16;
-    this->adc |= (int64_t)adc3 << 32;
-    this->adc |= (int64_t)adc4 << 48;
-    this->gain = gain;
+    adc = adc1;
+    adc |= (int64_t)adc2 << 16;
+    adc |= (int64_t)adc3 << 32;
+    adc |= (int64_t)adc4 << 48;
+    gain = gain;
 }
 
 AdcMux::AdcMux()
 {
-    this->adc_count = 4;
-    this->adc = (Adafruit_ADS1115 *)malloc(sizeof(Adafruit_ADS1115) * this->adc_count);
+    adc_count = 4;
+    adc = (Adafruit_ADS1115 *)malloc(sizeof(Adafruit_ADS1115) * adc_count);
     for (int i = 0; i < adc_count; i++)
     {
-        this->adc[i] = Adafruit_ADS1115();
+        adc[i] = Adafruit_ADS1115();
     }
 };
 
@@ -70,7 +70,7 @@ void AdcMux::set_gain(adsGain_t gain)
     {
         adc[i].setGain(gain);
     }
-    this->gain = gain;
+    gain = gain;
 }
 
 void AdcMux::set_rate(uint16_t rate)
@@ -87,7 +87,7 @@ void AdcMux::begin()
     adc[1].begin(AdcAddr::ADC2);
     adc[2].begin(AdcAddr::ADC3);
     adc[3].begin(AdcAddr::ADC4);
-    this->set_gain(GAIN_TWOTHIRDS);
+    set_gain(GAIN_TWOTHIRDS);
 }
 
 void AdcMux::start_adc_reading(uint8_t mux, bool continuous)
@@ -104,7 +104,7 @@ AdcMuxReading AdcMux::one_shot_reading(uint8_t channel)
     int16_t adc2 = adc[1].readADC_SingleEnded(channel);
     int16_t adc3 = adc[2].readADC_SingleEnded(channel);
     int16_t adc4 = adc[3].readADC_SingleEnded(channel);
-    return AdcMuxReading(adc1, adc2, adc3, adc4, this->gain);
+    return AdcMuxReading(adc1, adc2, adc3, adc4, gain);
 }
 
 AdcMuxReading AdcMux::read()
@@ -113,5 +113,5 @@ AdcMuxReading AdcMux::read()
     int16_t adc2 = adc[1].getLastConversionResults();
     int16_t adc3 = adc[2].getLastConversionResults();
     int16_t adc4 = adc[3].getLastConversionResults();
-    return AdcMuxReading(adc1, adc2, adc3, adc4, this->gain);
+    return AdcMuxReading(adc1, adc2, adc3, adc4, gain);
 }

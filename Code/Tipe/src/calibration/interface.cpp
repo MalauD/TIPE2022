@@ -4,9 +4,9 @@ void CalInterface::start()
 {
     Serial.println("Starting calibration");
     Serial.println("Test:");
-    this->adc.begin();
-    this->adc.set_gain(GAIN_ONE);
-    auto reading = this->adc.one_shot_reading(0);
+    adc.begin();
+    adc.set_gain(GAIN_ONE);
+    auto reading = adc.one_shot_reading(0);
     Serial.print("Adc1: ");
     Serial.print(reading.getAdcValueByAddr(AdcAddr::ADC1));
     Serial.print(" Adc2: ");
@@ -34,10 +34,10 @@ void CalInterface::start()
             Serial.println(reading);
             Serial.print("Inverse Adc: ");
             Serial.println(1 / reading);
-            this->dataSet.appendDataPoint({1 / reading, val});
+            dataSet.appendDataPoint({1 / reading, val});
         }
     }
-    auto result = linearRegression(this->dataSet);
+    auto result = linearRegression(dataSet);
     Serial.print("Slope: ");
     Serial.println(result.slope);
     Serial.print("Intercept: ");

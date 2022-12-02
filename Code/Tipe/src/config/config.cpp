@@ -2,19 +2,19 @@
 
 void Config::serialize(std::ostream &os)
 {
-    os << std::to_string(this->size) << '\n';
-    for (size_t i = 0; i < this->size; i++)
+    os << std::to_string(size) << '\n';
+    for (size_t i = 0; i < size; i++)
     {
-        os << std::to_string(this->linearRegressionResult[i].slope) << ','
-           << std::to_string(this->linearRegressionResult[i].intercept) << ','
-           << std::to_string(this->linearRegressionResult[i].r) << '\n';
+        os << std::to_string(linearRegressionResult[i].slope) << ','
+           << std::to_string(linearRegressionResult[i].intercept) << ','
+           << std::to_string(linearRegressionResult[i].r) << '\n';
     }
-    for (size_t i = 0; i < this->size; i++)
+    for (size_t i = 0; i < size; i++)
     {
-        os << std::to_string(this->dataSet[i].size()) << '\n';
-        for (size_t j = 0; j < this->dataSet[i].size(); j++)
+        os << std::to_string(dataSet[i].size()) << '\n';
+        for (size_t j = 0; j < dataSet[i].size(); j++)
         {
-            auto point = this->dataSet[i].at(j);
+            auto point = dataSet[i].at(j);
             os << std::to_string(point.x) << ',' << std::to_string(point.y) << '\n';
         }
     }
@@ -36,18 +36,18 @@ void Config::deserialize(std::istream &is)
 {
     std::string line;
     std::getline(is, line);
-    this->size = std::stoi(line);
-    this->linearRegressionResult = new LinearRegressionResult<float>[this->size];
-    this->dataSet = new DataSet<float>[this->size];
-    for (size_t i = 0; i < this->size; i++)
+    size = std::stoi(line);
+    linearRegressionResult = new LinearRegressionResult<float>[size];
+    dataSet = new DataSet<float>[size];
+    for (size_t i = 0; i < size; i++)
     {
         std::getline(is, line);
         auto values = split(line, ',');
-        this->linearRegressionResult[i].slope = std::stof(values[0]);
-        this->linearRegressionResult[i].intercept = std::stof(values[1]);
-        this->linearRegressionResult[i].r = std::stof(values[2]);
+        linearRegressionResult[i].slope = std::stof(values[0]);
+        linearRegressionResult[i].intercept = std::stof(values[1]);
+        linearRegressionResult[i].r = std::stof(values[2]);
     }
-    for (size_t i = 0; i < this->size; i++)
+    for (size_t i = 0; i < size; i++)
     {
         std::getline(is, line);
         auto size = std::stoi(line);
@@ -58,7 +58,7 @@ void Config::deserialize(std::istream &is)
             DataPoint<float> point;
             point.x = std::stof(values[0]);
             point.y = std::stof(values[1]);
-            this->dataSet[i].appendDataPoint(point);
+            dataSet[i].appendDataPoint(point);
         }
     }
 }

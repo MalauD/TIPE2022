@@ -1,6 +1,6 @@
 #pragma once
 #include "../math/linear_regression.hpp"
-#include "LittleFs.h"
+#include "LittleFS.h"
 #include <ostream>
 #include <sstream>
 #include <string>
