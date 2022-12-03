@@ -24,6 +24,7 @@ public:
   int16_t getAdcValueByIndex(size_t index);
   float getAdcValueByIndexInVolts(size_t addr);
   float getAdcValueByAddrInVolts(AdcAddr addr);
+  void convert_to_weight(Config *config, float *weights);
 };
 
 class AdcMux
@@ -41,5 +42,5 @@ public:
   void start_adc_reading(uint8_t mux, bool continuous);
   AdcMuxReading one_shot_reading(uint8_t channel);
   AdcMuxReading read();
-  float *convert_to_weight(AdcMuxReading reading, Config *config);
+  void continuous_reading(uint8_t channel, std::function<void(AdcMuxReading)> callback);
 };

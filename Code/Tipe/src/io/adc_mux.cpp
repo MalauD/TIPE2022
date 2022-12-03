@@ -124,14 +124,25 @@ AdcMuxReading AdcMux::read()
     return AdcMuxReading(adc1, adc2, adc3, adc4, gain);
 }
 
-float *AdcMux::convert_to_weight(AdcMuxReading reading, Config *config)
+void AdcMux::continuous_reading(uint8_t mux, std::function<void(AdcMuxReading)> callback)
 {
-    float *weight = (float *)malloc(sizeof(float) * adc_count);
     for (int i = 0; i < adc_count; i++)
+    {
+        adc[i].startADCReading(mux, true);
+    }
+    while (true)
+    {
+        callback(read());
+        delayMicroseconds(10);
+    }
+}
+
+void AdcMuxReading::convert_to_weight(Config *config, float *weight)
+{
+    for (int i = 0; i < ADC_MAX_COUNT; i++)
     {
         auto linearRegressionResult = config->getLinearRegressionResult(i);
         weight[i] =
-            (1 / reading.getAdcValueByIndexInVolts(i)) * linearRegressionResult.slope + linearRegressionResult.intercept;
+            (1 / getAdcValueByIndexInVolts(i)) * linearRegressionResult.slope + linearRegressionResult.intercept;
     }
-    return weight;
 }
