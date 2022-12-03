@@ -1,5 +1,6 @@
 #include "./calibration/interface.hpp"
 #include "./config/config.hpp"
+#include <FunctionalInterrupt.h>
 
 enum ManagerMenus
 {
@@ -18,7 +19,7 @@ class Manager
 
     ManagerMenus menu();
 
-public:
+  public:
     Manager();
     void run();
 };
@@ -47,6 +48,24 @@ ManagerMenus Manager::menu()
     }
 
     return static_cast<ManagerMenus>(choice);
+}
+
+void measureSerial(Config *config)
+{
+    Serial.println("Press any key to start measurement (Serial).");
+    while (!Serial.available())
+        ;
+    Serial.read();
+    Serial.println("Starting measurement...");
+    AdcMux adc;
+    adc.begin();
+    adc.set_gain(GAIN_ONE);
+    adc.set_rate(RATE_ADS1115_860SPS);
+    adc.start_adc_reading(ADS1X15_REG_CONFIG_MUX_SINGLE_0, true);
+    auto cb = [&adc, config]() {
+        auto reading = adc.read();
+        };
+    attachInterrupt(digitalPinToInterrupt(0), cb, FALLING);
 }
 
 void Manager::run()

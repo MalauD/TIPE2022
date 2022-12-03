@@ -14,6 +14,7 @@ class Config
   public:
     void serialize(std::ostream &os);
     void deserialize(std::istream &is);
+    LinearRegressionResult<float> getLinearRegressionResult(size_t index);
 };
 
 class ConfigManager

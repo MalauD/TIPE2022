@@ -16,6 +16,11 @@ int16_t AdcMuxReading::getAdcValueByAddr(AdcAddr addr)
     return -1;
 }
 
+int16_t AdcMuxReading::getAdcValueByIndex(size_t index)
+{
+    return adc >> index * 16;
+}
+
 float AdcMuxReading::getAdcValueByAddrInVolts(AdcAddr addr)
 {
     float fsRange;
@@ -114,4 +119,16 @@ AdcMuxReading AdcMux::read()
     int16_t adc3 = adc[2].getLastConversionResults();
     int16_t adc4 = adc[3].getLastConversionResults();
     return AdcMuxReading(adc1, adc2, adc3, adc4, gain);
+}
+
+float *AdcMux::convert_to_weight(AdcMuxReading reading, Config *config)
+{
+    float *weight = (float *)malloc(sizeof(float) * adc_count);
+    for (int i = 0; i < adc_count; i++)
+    {
+        auto linearRegressionResult = config->getLinearRegressionResult(i);
+        weight[i] =
+            (1 / reading.getAdcValueByIndex(i)) * linearRegressionResult.slope + linearRegressionResult.intercept;
+    }
+    return weight;
 }

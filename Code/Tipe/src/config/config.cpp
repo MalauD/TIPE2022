@@ -6,8 +6,8 @@ void Config::serialize(std::ostream &os)
     for (size_t i = 0; i < size; i++)
     {
         os << std::to_string(linearRegressionResult[i].slope) << ','
-           << std::to_string(linearRegressionResult[i].intercept) << ','
-           << std::to_string(linearRegressionResult[i].r) << '\n';
+           << std::to_string(linearRegressionResult[i].intercept) << ',' << std::to_string(linearRegressionResult[i].r)
+           << '\n';
     }
     for (size_t i = 0; i < size; i++)
     {
@@ -18,6 +18,11 @@ void Config::serialize(std::ostream &os)
             os << std::to_string(point.x) << ',' << std::to_string(point.y) << '\n';
         }
     }
+}
+
+LinearRegressionResult<float> Config::getLinearRegressionResult(size_t index)
+{
+    return this->linearRegressionResult[index];
 }
 
 std::vector<std::string> split(std::string str, char delimiter)
