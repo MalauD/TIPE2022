@@ -10,5 +10,5 @@ class CalInterface
 
 public:
   CalInterface() : adc(AdcMux()){};
-  void start();
+  void start(Config *config);
 };

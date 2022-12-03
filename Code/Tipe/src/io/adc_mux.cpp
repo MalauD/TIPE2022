@@ -2,23 +2,12 @@
 
 int16_t AdcMuxReading::getAdcValueByAddr(AdcAddr addr)
 {
-    switch (addr)
-    {
-    case ADC1:
-        return adc >> 0;
-    case ADC2:
-        return adc >> 16;
-    case ADC3:
-        return adc >> 32;
-    case ADC4:
-        return adc >> 48;
-    }
-    return -1;
+    return values[addr - ADC1];
 }
 
 int16_t AdcMuxReading::getAdcValueByIndex(size_t index)
 {
-    return adc >> index * 16;
+    return values[index];
 }
 
 float AdcMuxReading::getAdcValueByAddrInVolts(AdcAddr addr)
@@ -50,13 +39,27 @@ float AdcMuxReading::getAdcValueByAddrInVolts(AdcAddr addr)
     return getAdcValueByAddr(addr) * (fsRange / 32768);
 }
 
-AdcMuxReading::AdcMuxReading(int16_t adc1, int16_t adc2, int16_t adc3, int16_t adc4, adsGain_t gain)
+float AdcMuxReading::getAdcValueByIndexInVolts(size_t index)
 {
-    adc = adc1;
-    adc |= (int64_t)adc2 << 16;
-    adc |= (int64_t)adc3 << 32;
-    adc |= (int64_t)adc4 << 48;
-    gain = gain;
+    return getAdcValueByAddrInVolts(static_cast<AdcAddr>((int)ADC1 + index));
+}
+
+AdcMuxReading::AdcMuxReading(int16_t adc1, int16_t adc2, int16_t adc3, int16_t adc4, adsGain_t new_gain)
+{
+    values[0] = adc1;
+    values[1] = adc2;
+    values[2] = adc3;
+    values[3] = adc4;
+    gain = new_gain;
+}
+
+void AdcMuxReading::print()
+{
+    for (int i = 0; i < 4; i++)
+    {
+        Serial.print("ADC" + String(i + 1) + ": " + String(getAdcValueByIndexInVolts(i)) + "V (" + String(getAdcValueByIndex(i)) + ") ");
+    }
+    Serial.println();
 }
 
 AdcMux::AdcMux()
@@ -69,13 +72,13 @@ AdcMux::AdcMux()
     }
 };
 
-void AdcMux::set_gain(adsGain_t gain)
+void AdcMux::set_gain(adsGain_t new_gain)
 {
     for (int i = 0; i < adc_count; i++)
     {
-        adc[i].setGain(gain);
+        adc[i].setGain(new_gain);
     }
-    gain = gain;
+    gain = new_gain;
 }
 
 void AdcMux::set_rate(uint16_t rate)
@@ -128,7 +131,7 @@ float *AdcMux::convert_to_weight(AdcMuxReading reading, Config *config)
     {
         auto linearRegressionResult = config->getLinearRegressionResult(i);
         weight[i] =
-            (1 / reading.getAdcValueByIndex(i)) * linearRegressionResult.slope + linearRegressionResult.intercept;
+            (1 / reading.getAdcValueByIndexInVolts(i)) * linearRegressionResult.slope + linearRegressionResult.intercept;
     }
     return weight;
 }

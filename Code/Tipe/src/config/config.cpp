@@ -68,24 +68,31 @@ void Config::deserialize(std::istream &is)
     }
 }
 
+void Config::print()
+{
+    std::stringstream ss;
+    serialize(ss);
+    Serial.println(ss.str().c_str());
+}
+
 ConfigManager::ConfigManager()
 {
 }
 
 int ConfigManager::begin()
 {
-    Serial.println("Formatting file system...");
-    if (!LittleFS.format())
-    {
-        Serial.println("File system format failed.");
-        return 1;
-    }
+    // Serial.println("Formatting file system...");
+    //  if (!LittleFS.format())
+    //{
+    //      Serial.println("File system format failed.");
+    //      return 1;
+    //  }
     if (!LittleFS.begin())
     {
         Serial.println("Failed to start file system");
         return 1;
     }
-    Serial.println("File system formatted.");
+    Serial.println("File system started.");
     return 0;
 }
 
@@ -103,8 +110,25 @@ Config *ConfigManager::getConfig()
     {
         ss << (char)file.read();
     }
+    Serial.println("File content:");
+    Serial.println(ss.str().c_str());
     config->deserialize(ss);
     file.close();
+    return config;
+}
+
+Config *Config::getDefaultConfig()
+{
+    Config *config = (Config *)malloc(sizeof(Config));
+    config->size = 4;
+    config->linearRegressionResult = new LinearRegressionResult<float>[config->size];
+    config->dataSet = new DataSet<float>[config->size];
+    for (size_t i = 0; i < config->size; i++)
+    {
+        config->linearRegressionResult[i].slope = 0.0;
+        config->linearRegressionResult[i].intercept = 0.0;
+        config->linearRegressionResult[i].r = 0.0;
+    }
     return config;
 }
 
@@ -120,4 +144,24 @@ void ConfigManager::saveConfig(Config &config)
     config.serialize(ss);
     file.print(ss.str().c_str());
     file.close();
+}
+
+void Config::setLinearRegressionResultAtIndex(LinearRegressionResult<float> result, size_t index)
+{
+    this->linearRegressionResult[index] = result;
+}
+
+void Config::setDatasetAtIndex(DataSet<float> dataset, size_t index)
+{
+    this->dataSet[index] = dataset;
+}
+
+DataSet<float> Config::getDatasetAtIndex(size_t index)
+{
+    return this->dataSet[index];
+}
+
+void Config::extendDatasetAtIndex(DataSet<float> dataset, size_t index)
+{
+    this->dataSet[index].extend(dataset);
 }

@@ -1,25 +1,50 @@
 #include "interface.hpp"
 
-void CalInterface::start()
+void CalInterface::start(Config *config)
 {
     Serial.println("Starting calibration");
     Serial.println("Test:");
+
+    dataSet.clear();
     adc.begin();
     adc.set_gain(GAIN_ONE);
-    auto reading = adc.one_shot_reading(0);
-    Serial.print("Adc1: ");
-    Serial.print(reading.getAdcValueByAddr(AdcAddr::ADC1));
-    Serial.print(" Adc2: ");
-    Serial.print(reading.getAdcValueByAddr(AdcAddr::ADC2));
-    Serial.print(" Adc3: ");
-    Serial.print(reading.getAdcValueByAddr(AdcAddr::ADC3));
-    Serial.print(" Adc4: ");
-    Serial.println(reading.getAdcValueByAddr(AdcAddr::ADC4));
-    Serial.println("Enter value to start calibration");
-    while (!Serial.available())
-        ;
+    auto test_reading = adc.one_shot_reading(0);
+    test_reading.print();
+
+    Serial.println("Extend the current config ? [y/n]");
+
+    int choice = -1;
     while (true)
     {
+        while (!Serial.available())
+            ;
+        choice = Serial.read();
+        if (choice == 'y')
+        {
+            Serial.println("Extending config");
+            break;
+        }
+        else if (choice == 'n')
+        {
+            Serial.println("Not extending config");
+            break;
+        }
+    }
+    Serial.println("Choose a channel to calibrate (1-4):");
+    int channel = 0;
+    while (channel <= 0 || channel >= 5)
+    {
+        while (!Serial.available())
+            ;
+        channel = Serial.parseInt();
+    }
+
+    Serial.println("Enter value to start calibration - channel " + String(channel) + " - (in grams):");
+
+    while (true)
+    {
+        while (!Serial.available())
+            ;
         float val = Serial.parseFloat();
         if (val == -1)
         {
@@ -27,21 +52,35 @@ void CalInterface::start()
         }
         if (val != 0)
         {
+            auto adc_reading = adc.one_shot_reading(0);
+            adc_reading.print();
+            auto reading = adc_reading.getAdcValueByIndexInVolts(channel - 1);
             Serial.print("Value: ");
             Serial.println(val);
             Serial.print("Adc: ");
-            auto reading = adc.one_shot_reading(0).getAdcValueByAddrInVolts(AdcAddr::ADC1);
             Serial.println(reading);
             Serial.print("Inverse Adc: ");
             Serial.println(1 / reading);
             dataSet.appendDataPoint({1 / reading, val});
         }
     }
-    auto result = linearRegression(dataSet);
+
+    if (choice == 'y')
+    {
+        config->extendDatasetAtIndex(dataSet, channel - 1);
+    }
+    else
+    {
+        config->setDatasetAtIndex(dataSet, channel - 1);
+    }
+
+    auto newDataset = config->getDatasetAtIndex(channel - 1);
+    auto result = linearRegression(newDataset);
     Serial.print("Slope: ");
     Serial.println(result.slope);
     Serial.print("Intercept: ");
     Serial.println(result.intercept);
     Serial.print("R: ");
     Serial.println(result.r);
+    config->setLinearRegressionResultAtIndex(result, channel - 1);
 }
