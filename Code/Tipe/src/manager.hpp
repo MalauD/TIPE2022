@@ -79,7 +79,10 @@ void measureSerial(Config *config)
     auto cb = [&](AdcMuxReading reading)
     {
         reading.convert_to_weight(config, weight);
-        // Serial.println("Weight: " + String(weight[0]) + "g, " + String(weight[1]) + "g, " + String(weight[2]) + "g, " + String(weight[3]) + "g, Rate: " + String(measure_rate) + "Hz");
+        if (measure_count % 10 == 0)
+        {
+            Serial.println("Weight: " + String(weight[0]) + "g, " + String(weight[1]) + "g, " + String(weight[2]) + "g, " + String(weight[3]) + "g, Rate: " + String(measure_rate) + "Hz");
+        }
 
         measure_count++;
         if (millis() - t > 1000)
@@ -87,17 +90,17 @@ void measureSerial(Config *config)
             measure_rate = measure_count;
             t = millis();
             measure_count = 0;
-            Serial.println("Rate: " + String(measure_rate) + "Hz");
         }
     };
 
-    adc.continuous_reading(ADS1X15_REG_CONFIG_MUX_SINGLE_0, cb);
+    adc.continuous_reading(0, cb);
 }
 
 void Manager::run()
 {
     configManager.begin();
     config = configManager.getConfig();
+    Wire.setClock(400000);
     while (true)
     {
         switch (menu())

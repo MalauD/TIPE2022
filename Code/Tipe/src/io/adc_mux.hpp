@@ -1,6 +1,7 @@
 #pragma once
 #include "../config/config.hpp"
 #include <Adafruit_ADS1X15.h>
+#include "FunctionalInterrupt.h"
 
 constexpr int ADC_MAX_COUNT = 4;
 

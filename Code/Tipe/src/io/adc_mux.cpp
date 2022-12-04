@@ -55,6 +55,7 @@ AdcMuxReading::AdcMuxReading(int16_t adc1, int16_t adc2, int16_t adc3, int16_t a
 
 void AdcMuxReading::print()
 {
+    Serial.println("Gain: " + String(gain));
     for (int i = 0; i < 4; i++)
     {
         Serial.print("ADC" + String(i + 1) + ": " + String(getAdcValueByIndexInVolts(i)) + "V (" + String(getAdcValueByIndex(i)) + ") ");
@@ -124,16 +125,27 @@ AdcMuxReading AdcMux::read()
     return AdcMuxReading(adc1, adc2, adc3, adc4, gain);
 }
 
-void AdcMux::continuous_reading(uint8_t mux, std::function<void(AdcMuxReading)> callback)
+void AdcMux::continuous_reading(uint8_t channel, std::function<void(AdcMuxReading)> callback)
 {
-    for (int i = 0; i < adc_count; i++)
+    for (int i = 0; i < ADC_MAX_COUNT; i++)
     {
-        adc[i].startADCReading(mux, true);
+        adc[i].startADCReading(MUX_BY_CHANNEL[channel], true);
     }
+    pinMode(5, INPUT);
+
+    volatile bool new_data = false;
+
+    attachInterrupt(
+        digitalPinToInterrupt(14), [&]()
+        { new_data = true; },
+        FALLING);
     while (true)
     {
-        callback(read());
-        delayMicroseconds(10);
+        if (new_data)
+        {
+            new_data = false;
+            callback(read());
+        }
     }
 }
 
