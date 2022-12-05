@@ -2,6 +2,7 @@
 #include "./config/config.hpp"
 #include "Arduino.h"
 #include <FunctionalInterrupt.h>
+#include "./io/sd_logging.hpp"
 
 enum ManagerMenus
 {
@@ -19,8 +20,12 @@ class Manager
     CalInterface interface;
     ConfigManager configManager;
     Config *config;
+    SDLogging sdLogging;
 
-    ManagerMenus menu();
+    ManagerMenus
+    menu();
+    void measureSerial(Config *config);
+    void measureSD(Config *config);
 
 public:
     Manager();
@@ -31,6 +36,7 @@ Manager::Manager()
 {
     interface = CalInterface();
     configManager = ConfigManager();
+    sdLogging = SDLogging();
     config = Config::getDefaultConfig();
 }
 
@@ -55,7 +61,7 @@ ManagerMenus Manager::menu()
     return static_cast<ManagerMenus>(choice);
 }
 
-void measureSerial(Config *config)
+void Manager::measureSerial(Config *config)
 {
     Serial.println("Press any key to start measurement (Serial).");
     while (!Serial.available())
@@ -96,9 +102,43 @@ void measureSerial(Config *config)
     adc.continuous_reading(0, cb);
 }
 
+void Manager::measureSD(Config *config)
+{
+    Serial.println("Starting measurement...");
+    AdcMux adc;
+    adc.begin();
+    adc.set_gain(GAIN_ONE);
+    adc.set_rate(RATE_ADS1115_860SPS);
+
+    int t = millis();
+    int measure_count = 0;
+
+    int measure_rate = 0;
+
+    auto cb = [&](AdcMuxReading reading)
+    {
+        sdLogging.logWeights(reading, config);
+        if (measure_count % 10 == 0)
+        {
+            Serial.println("Rate: " + String(measure_rate) + "Hz");
+        }
+
+        measure_count++;
+        if (millis() - t > 1000)
+        {
+            measure_rate = measure_count;
+            t = millis();
+            measure_count = 0;
+        }
+    };
+
+    adc.continuous_reading(0, cb);
+}
+
 void Manager::run()
 {
     configManager.begin();
+    sdLogging.begin();
     config = configManager.getConfig();
     Wire.setClock(400000);
     while (true)
@@ -121,6 +161,7 @@ void Manager::run()
             config = Config::getDefaultConfig();
             break;
         case MEASUREMENT_SD:
+            measureSD(config);
             break;
         case MEASUREMENT_SERIAL:
             measureSerial(config);
