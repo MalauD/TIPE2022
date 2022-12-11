@@ -27,17 +27,14 @@ class Manager
     void measureSerial(Config *config, bool logRaw);
     void measureSD(Config *config);
 
-  public:
+public:
     Manager();
     void run();
 };
 
-Manager::Manager()
+Manager::Manager() : interface(CalInterface()), configManager(ConfigManager()), sdLogging(SDLogging())
 {
-    interface = CalInterface();
-    configManager = ConfigManager();
-    sdLogging = SDLogging();
-    config = Config::getDefaultConfig();
+    Config();
 }
 
 ManagerMenus Manager::menu()
@@ -83,7 +80,8 @@ void Manager::measureSerial(Config *config, bool logRaw = false)
 
     float weight[ADC_MAX_COUNT];
 
-    auto cb = [&](AdcMuxReading reading) {
+    auto cb = [&](AdcMuxReading reading)
+    {
         reading.convert_to_weight(config, weight);
         if (measure_count % 10 == 0)
         {
@@ -123,7 +121,8 @@ void Manager::measureSD(Config *config)
 
     int measure_rate = 0;
 
-    auto cb = [&](AdcMuxReading reading) {
+    auto cb = [&](AdcMuxReading reading)
+    {
         sdLogging.logWeights(reading, config);
         if (measure_count % 10 == 0)
         {
