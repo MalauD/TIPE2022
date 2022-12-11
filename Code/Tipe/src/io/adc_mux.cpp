@@ -58,7 +58,8 @@ void AdcMuxReading::print()
     Serial.println("Gain: " + String(gain));
     for (int i = 0; i < 4; i++)
     {
-        Serial.print("ADC" + String(i + 1) + ": " + String(getAdcValueByIndexInVolts(i)) + "V (" + String(getAdcValueByIndex(i)) + ") ");
+        Serial.print("ADC" + String(i + 1) + ": " + String(getAdcValueByIndexInVolts(i), 4) + "V (" +
+                     String(getAdcValueByIndex(i)) + ") ");
     }
     Serial.println();
 }
@@ -136,9 +137,7 @@ void AdcMux::continuous_reading(uint8_t channel, std::function<void(AdcMuxReadin
     volatile bool new_data = false;
 
     attachInterrupt(
-        digitalPinToInterrupt(14), [&]()
-        { new_data = true; },
-        FALLING);
+        digitalPinToInterrupt(14), [&]() { new_data = true; }, FALLING);
     while (true)
     {
         if (new_data)

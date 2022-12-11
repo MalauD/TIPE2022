@@ -1,8 +1,8 @@
 #include "./calibration/interface.hpp"
 #include "./config/config.hpp"
+#include "./io/sd_logging.hpp"
 #include "Arduino.h"
 #include <FunctionalInterrupt.h>
-#include "./io/sd_logging.hpp"
 
 enum ManagerMenus
 {
@@ -13,6 +13,7 @@ enum ManagerMenus
     LOAD_DEFAULT_CONFIG,
     MEASUREMENT_SD,
     MEASUREMENT_SERIAL,
+    MEASUREMENT_RAW
 };
 
 class Manager
@@ -22,12 +23,11 @@ class Manager
     Config *config;
     SDLogging sdLogging;
 
-    ManagerMenus
-    menu();
-    void measureSerial(Config *config);
+    ManagerMenus menu();
+    void measureSerial(Config *config, bool logRaw);
     void measureSD(Config *config);
 
-public:
+  public:
     Manager();
     void run();
 };
@@ -51,7 +51,8 @@ ManagerMenus Manager::menu()
     Serial.println("5. Load default config");
     Serial.println("6. Start measurement (SD card)");
     Serial.println("7. Start measurement (Serial port)");
-    while (choice <= 0 || choice >= 8)
+    Serial.println("8. Start measurement (Raw)");
+    while (choice <= 0 || choice >= 9)
     {
         while (!Serial.available())
             ;
@@ -61,7 +62,7 @@ ManagerMenus Manager::menu()
     return static_cast<ManagerMenus>(choice);
 }
 
-void Manager::measureSerial(Config *config)
+void Manager::measureSerial(Config *config, bool logRaw = false)
 {
     Serial.println("Press any key to start measurement (Serial).");
     while (!Serial.available())
@@ -82,12 +83,19 @@ void Manager::measureSerial(Config *config)
 
     float weight[ADC_MAX_COUNT];
 
-    auto cb = [&](AdcMuxReading reading)
-    {
+    auto cb = [&](AdcMuxReading reading) {
         reading.convert_to_weight(config, weight);
         if (measure_count % 10 == 0)
         {
-            Serial.println("Weight: " + String(weight[0]) + "g, " + String(weight[1]) + "g, " + String(weight[2]) + "g, " + String(weight[3]) + "g, Rate: " + String(measure_rate) + "Hz");
+            if (logRaw)
+            {
+                reading.print();
+            }
+            else
+            {
+                Serial.println("Weight: " + String(weight[0]) + "g, " + String(weight[1]) + "g, " + String(weight[2]) +
+                               "g, " + String(weight[3]) + "g, Rate: " + String(measure_rate) + "Hz");
+            }
         }
 
         measure_count++;
@@ -115,8 +123,7 @@ void Manager::measureSD(Config *config)
 
     int measure_rate = 0;
 
-    auto cb = [&](AdcMuxReading reading)
-    {
+    auto cb = [&](AdcMuxReading reading) {
         sdLogging.logWeights(reading, config);
         if (measure_count % 10 == 0)
         {
@@ -165,6 +172,9 @@ void Manager::run()
             break;
         case MEASUREMENT_SERIAL:
             measureSerial(config);
+            break;
+        case MEASUREMENT_RAW:
+            measureSerial(config, true);
             break;
         default:
             break;
