@@ -14,9 +14,10 @@ class LinearRegression : public FittingResult<T>
 public:
     LinearRegression(T slope, T intercept, T r) : slope(slope), intercept(intercept), r(r){};
     void print();
-    static FittingResult<T> calculateFitting(DataSet<T> data) = 0;
+    static FittingResult<T> &calculateFitting(DataSet<T> data) = 0;
     T calculateOutput(T input);
     friend std::ostream &operator<<(std::ostream &stream, const LinearRegression &fitting);
+    static FittingResult<T> &parse(std::string str) = 0
 };
 
 template <typename T>
@@ -63,4 +64,15 @@ std::ostream &operator<<(std::ostream &os, const LinearRegression<T> &fitting)
 {
     os << fitting.slope << "," << fitting.intercept << "," << fitting.r;
     return os;
+}
+
+template <typename T>
+FittingResult<T> &parse(std::string str)
+{
+    auto values = split(line, ',');
+    FittingResult<T> fittingResult = new FittingResult<T>();
+    fittingResult.slope = std::stof(values[0]);
+    fittingResult.intercept = std::stof(values[1]);
+    fittingResult.r = std::stof(values[2]);
+    return fittingResult;
 }

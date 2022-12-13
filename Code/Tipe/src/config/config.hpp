@@ -1,35 +1,38 @@
 #pragma once
-#include "../math/linear_regression.hpp"
+#include "../math/fitting/fitting.hpp"
+#include "../io/adc_mux.hpp"
 #include "LittleFS.h"
 #include <ostream>
 #include <sstream>
 #include <string>
+#include <array>
 
+template <typename T, std::size_t size>
 class Config
 {
-  LinearRegressionResult<float> *linearRegressionResult;
-  DataSet<float> *dataSet;
-  size_t size;
+  std::array<std::unique_ptr<FittingResult<T>>, size> fittingResult;
+  std::array<DataSet<T>, size> dataSet;
 
 public:
   void serialize(std::ostream &os);
   void deserialize(std::istream &is);
 
   void print();
-  static Config *getDefaultConfig();
+  static std::unique_ptr<Config> getDefaultConfig();
 
-  LinearRegressionResult<float> getLinearRegressionResult(size_t index);
-  void setLinearRegressionResultAtIndex(LinearRegressionResult<float> result, size_t index);
-  void extendDatasetAtIndex(DataSet<float> dataset, size_t index);
-  void setDatasetAtIndex(DataSet<float> dataset, size_t index);
-  DataSet<float> getDatasetAtIndex(size_t index);
+  std::unique_ptr<FittingResult<T>> getFittingResultAt(size_t index);
+  void setFittingResultAt(FittingResult<T> &result, size_t index);
+  void extendDatasetAt(DataSet<T> dataset, size_t index);
+  void setDatasetAt(DataSet<T> dataset, size_t index);
+  DataSet<T> getDatasetAt(size_t index);
 };
 
+template <typename T, std::size_t config_size>
 class ConfigManager
 {
 public:
   ConfigManager();
   int begin();
-  Config *getConfig();
-  void saveConfig(Config &config);
+  std::unique_ptr<Config<T, config_size>> getConfig();
+  void saveConfig(Config<T, config_size> &config);
 };

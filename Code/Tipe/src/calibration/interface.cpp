@@ -67,14 +67,14 @@ void CalInterface::start(Config *config)
 
     if (choice == 'y')
     {
-        config->extendDatasetAtIndex(dataSet, channel - 1);
+        config->extendDatasetAt(dataSet, channel - 1);
     }
     else
     {
-        config->setDatasetAtIndex(dataSet, channel - 1);
+        config->setDatasetAt(dataSet, channel - 1);
     }
 
-    auto newDataset = config->getDatasetAtIndex(channel - 1);
+    auto newDataset = config->getDatasetAt(channel - 1);
     auto result = linearRegression(newDataset);
     Serial.print("Slope: ");
     Serial.println(result.slope);
@@ -82,5 +82,5 @@ void CalInterface::start(Config *config)
     Serial.println(result.intercept);
     Serial.print("R: ");
     Serial.println(result.r);
-    config->setLinearRegressionResultAtIndex(result, channel - 1);
+    config->setFittingResultAt(result, channel - 1);
 }

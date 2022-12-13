@@ -152,7 +152,7 @@ void AdcMuxReading::convert_to_weight(Config *config, float *weight)
 {
     for (int i = 0; i < ADC_MAX_COUNT; i++)
     {
-        auto linearRegressionResult = config->getLinearRegressionResult(i);
+        auto linearRegressionResult = config->getFittingResultAt(i);
         weight[i] =
             (1 / getAdcValueByIndexInVolts(i)) * linearRegressionResult.slope + linearRegressionResult.intercept;
     }

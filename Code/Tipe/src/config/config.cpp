@@ -1,13 +1,12 @@
 #include "config.hpp"
 
-void Config::serialize(std::ostream &os)
+template <typename T, std::size_t size>
+void Config<T, size>::serialize(std::ostream &os)
 {
     os << std::to_string(size) << '\n';
     for (size_t i = 0; i < size; i++)
     {
-        os << std::to_string(linearRegressionResult[i].slope) << ','
-           << std::to_string(linearRegressionResult[i].intercept) << ',' << std::to_string(linearRegressionResult[i].r)
-           << '\n';
+        os << fittingResult[i].serialize() << '\n';
     }
     for (size_t i = 0; i < size; i++)
     {
@@ -20,9 +19,10 @@ void Config::serialize(std::ostream &os)
     }
 }
 
-LinearRegressionResult<float> Config::getLinearRegressionResult(size_t index)
+template <typename T, std::size_t size>
+std::unique_ptr<FittingResult<T>> Config<T, size>::getFittingResultAt(size_t index)
 {
-    return this->linearRegressionResult[index];
+    return this->fittingResult[index];
 }
 
 std::vector<std::string> split(std::string str, char delimiter)
@@ -37,26 +37,23 @@ std::vector<std::string> split(std::string str, char delimiter)
     return result;
 }
 
-void Config::deserialize(std::istream &is)
+template <typename T, std::size_t size>
+void Config<T, size>::deserialize(std::istream &is)
 {
     std::string line;
     std::getline(is, line);
-    size = std::stoi(line);
-    linearRegressionResult = new LinearRegressionResult<float>[size];
+    fittingResult = new FittingResult<float>[size];
     dataSet = new DataSet<float>[size];
     for (size_t i = 0; i < size; i++)
     {
         std::getline(is, line);
-        auto values = split(line, ',');
-        linearRegressionResult[i].slope = std::stof(values[0]);
-        linearRegressionResult[i].intercept = std::stof(values[1]);
-        linearRegressionResult[i].r = std::stof(values[2]);
+        fittingResult[i] = FittingResult<float>::parse(line);
     }
     for (size_t i = 0; i < size; i++)
     {
         std::getline(is, line);
-        auto size = std::stoi(line);
-        for (size_t j = 0; j < size; j++)
+        auto size_d = std::stoi(line);
+        for (size_t j = 0; j < size_d; j++)
         {
             std::getline(is, line);
             auto values = split(line, ',');
@@ -68,18 +65,21 @@ void Config::deserialize(std::istream &is)
     }
 }
 
-void Config::print()
+template <typename T, std::size_t size>
+void Config<T, size>::print()
 {
     std::stringstream ss;
     serialize(ss);
     Serial.println(ss.str().c_str());
 }
 
-ConfigManager::ConfigManager()
+template <typename T, std::size_t size>
+ConfigManager<T, size>::ConfigManager()
 {
 }
 
-int ConfigManager::begin()
+template <typename T, std::size_t size>
+int ConfigManager<T, size>::begin()
 {
     // Serial.println("Formatting file system...");
     //  if (!LittleFS.format())
@@ -96,7 +96,8 @@ int ConfigManager::begin()
     return 0;
 }
 
-Config *ConfigManager::getConfig()
+template <typename T, std::size_t size>
+std::unique_ptr<Config> ConfigManager<T, size>::getConfig()
 {
     Config *config = new Config();
     File file = LittleFS.open("/config.txt", "r");
@@ -117,22 +118,24 @@ Config *ConfigManager::getConfig()
     return config;
 }
 
-Config *Config::getDefaultConfig()
+template <typename T, std::size_t size>
+std::unique_ptr<Config> Config<T, size>::getDefaultConfig()
 {
     Config *config = (Config *)malloc(sizeof(Config));
     config->size = 4;
-    config->linearRegressionResult = new LinearRegressionResult<float>[config->size];
+    config->fittingResult = new LinearRegressionResult<float>[config->size];
     config->dataSet = new DataSet<float>[config->size];
     for (size_t i = 0; i < config->size; i++)
     {
-        config->linearRegressionResult[i].slope = 0.0;
-        config->linearRegressionResult[i].intercept = 0.0;
-        config->linearRegressionResult[i].r = 0.0;
+        config->fittingResult[i].slope = 0.0;
+        config->fittingResult[i].intercept = 0.0;
+        config->fittingResult[i].r = 0.0;
     }
     return config;
 }
 
-void ConfigManager::saveConfig(Config &config)
+template <typename T, std::size_t size>
+void ConfigManager<T, size>::saveConfig(Config &config)
 {
     File file = LittleFS.open("/config.txt", "w");
     if (!file)
@@ -146,22 +149,26 @@ void ConfigManager::saveConfig(Config &config)
     file.close();
 }
 
-void Config::setLinearRegressionResultAtIndex(LinearRegressionResult<float> result, size_t index)
+template <typename T, std::size_t size>
+void Config<T, size>::setFittingResultAt(FittingResult<float> &result, size_t index)
 {
-    this->linearRegressionResult[index] = result;
+    this->fittingResult[index] = result;
 }
 
-void Config::setDatasetAtIndex(DataSet<float> dataset, size_t index)
+template <typename T, std::size_t size>
+void Config<T, size>::setDatasetAt(DataSet<float> dataset, size_t index)
 {
     this->dataSet[index] = dataset;
 }
 
-DataSet<float> Config::getDatasetAtIndex(size_t index)
+template <typename T, std::size_t size>
+DataSet<float> Config<T, size>::getDatasetAt(size_t index)
 {
     return this->dataSet[index];
 }
 
-void Config::extendDatasetAtIndex(DataSet<float> dataset, size_t index)
+template <typename T, std::size_t size>
+void Config<T, size>::extendDatasetAt(DataSet<float> dataset, size_t index)
 {
     this->dataSet[index].extend(dataset);
 }

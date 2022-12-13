@@ -49,7 +49,8 @@
     "cinttypes": "cpp",
     "typeinfo": "cpp",
     "istream": "cpp",
-    "sstream": "cpp"
+    "sstream": "cpp",
+    "iostream": "cpp"
   },
   "python.formatting.provider": "yapf"
 }
