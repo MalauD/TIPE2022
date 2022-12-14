@@ -42,12 +42,10 @@ void Config<T, size>::deserialize(std::istream &is)
 {
     std::string line;
     std::getline(is, line);
-    fittingResult = new FittingResult<float>[size];
-    dataSet = new DataSet<float>[size];
     for (size_t i = 0; i < size; i++)
     {
         std::getline(is, line);
-        fittingResult[i] = FittingResult<float>::parse(line);
+        fittingResult[i] = FittingResultFactory<T>::deserialize(line);
     }
     for (size_t i = 0; i < size; i++)
     {
@@ -97,9 +95,9 @@ int ConfigManager<T, size>::begin()
 }
 
 template <typename T, std::size_t size>
-std::unique_ptr<Config> ConfigManager<T, size>::getConfig()
+std::unique_ptr<Config<T, size>> ConfigManager<T, size>::getConfig()
 {
-    Config *config = new Config();
+    auto config = std::make_unique<Config<T, size>>(new Config<T, size>());
     File file = LittleFS.open("/config.txt", "r");
     if (!file)
     {
@@ -119,23 +117,18 @@ std::unique_ptr<Config> ConfigManager<T, size>::getConfig()
 }
 
 template <typename T, std::size_t size>
-std::unique_ptr<Config> Config<T, size>::getDefaultConfig()
+std::unique_ptr<Config<T, size>> Config<T, size>::getDefaultConfig()
 {
-    Config *config = (Config *)malloc(sizeof(Config));
-    config->size = 4;
-    config->fittingResult = new LinearRegressionResult<float>[config->size];
-    config->dataSet = new DataSet<float>[config->size];
-    for (size_t i = 0; i < config->size; i++)
+    auto config = std::make_unique<Config<T, size>>(new Config<T, size>());
+    for (size_t i = 0; i < size; i++)
     {
-        config->fittingResult[i].slope = 0.0;
-        config->fittingResult[i].intercept = 0.0;
-        config->fittingResult[i].r = 0.0;
+        config->fittingResult[i] = FittingResultFactory<T>::getDefault();
     }
     return config;
 }
 
 template <typename T, std::size_t size>
-void ConfigManager<T, size>::saveConfig(Config &config)
+void ConfigManager<T, size>::saveConfig(std::unique_ptr<Config<T, size>> config)
 {
     File file = LittleFS.open("/config.txt", "w");
     if (!file)
@@ -150,25 +143,34 @@ void ConfigManager<T, size>::saveConfig(Config &config)
 }
 
 template <typename T, std::size_t size>
-void Config<T, size>::setFittingResultAt(FittingResult<float> &result, size_t index)
+void Config<T, size>::setFittingResultAt(std::unique_ptr<FittingResult<T>> result, std::size_t index)
 {
     this->fittingResult[index] = result;
 }
 
 template <typename T, std::size_t size>
-void Config<T, size>::setDatasetAt(DataSet<float> dataset, size_t index)
+void Config<T, size>::setDatasetAt(DataSet<T> dataset, std::size_t index)
 {
     this->dataSet[index] = dataset;
 }
 
 template <typename T, std::size_t size>
-DataSet<float> Config<T, size>::getDatasetAt(size_t index)
+DataSet<T> Config<T, size>::getDatasetAt(std::size_t index)
 {
     return this->dataSet[index];
 }
 
 template <typename T, std::size_t size>
-void Config<T, size>::extendDatasetAt(DataSet<float> dataset, size_t index)
+void Config<T, size>::extendDatasetAt(DataSet<T> dataset, std::size_t index)
 {
     this->dataSet[index].extend(dataset);
+}
+
+template <typename T, std::size_t size>
+void Config<T, size>::convertToWeight(std::array<T, size> readings, std::array<T, size> weight)
+{
+    for (std::size_t i = 0; i < size; i++)
+    {
+        weight[i] = fittingResult[i]->calculateOutput(readings[i])
+    }
 }

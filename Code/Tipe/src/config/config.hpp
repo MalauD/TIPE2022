@@ -20,11 +20,12 @@ public:
   void print();
   static std::unique_ptr<Config> getDefaultConfig();
 
-  std::unique_ptr<FittingResult<T>> getFittingResultAt(size_t index);
-  void setFittingResultAt(FittingResult<T> &result, size_t index);
-  void extendDatasetAt(DataSet<T> dataset, size_t index);
-  void setDatasetAt(DataSet<T> dataset, size_t index);
-  DataSet<T> getDatasetAt(size_t index);
+  std::unique_ptr<FittingResult<T>> getFittingResultAt(std::size_t index);
+  void setFittingResultAt(std::unique_ptr<FittingResult<T>> result, std::size_t index);
+  void extendDatasetAt(DataSet<T> dataset, std::size_t index);
+  void setDatasetAt(DataSet<T> dataset, std::size_t index);
+  DataSet<T> getDatasetAt(std::size_t index);
+  void convertToWeight(std::array<T, size> readings, std::array<T, size> weight);
 };
 
 template <typename T, std::size_t config_size>
@@ -34,5 +35,5 @@ public:
   ConfigManager();
   int begin();
   std::unique_ptr<Config<T, config_size>> getConfig();
-  void saveConfig(Config<T, config_size> &config);
+  void saveConfig(std::unique_ptr<Config<T, config_size>> config);
 };

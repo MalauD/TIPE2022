@@ -9,7 +9,8 @@ class SDLogging
 public:
     SDLogging(){};
     void begin();
-    void logWeights(AdcMuxReading reading, Config *config);
+    template <typename T, std::size_t size>
+    void logWeights(AdcMuxReading reading, std::unique_ptr<Config<T, size>> config);
     unsigned long getLogIntervalMicros()
     {
         auto now = micros();
@@ -25,9 +26,20 @@ void SDLogging::begin()
     Serial.println("SD card initialization done.");
 }
 
-void SDLogging::logWeights(AdcMuxReading reading, Config *config)
+template <typename T, std::size_t size>
+void SDLogging::logWeights(AdcMuxReading reading, std::unique_ptr<Config<T, size>> config)
 {
-    float weight[ADC_MAX_COUNT];
+    T weight[size];
     reading.convert_to_weight(config, weight);
-    Serial1.println(String(getLogIntervalMicros()) + "," + String(weight[0], 0) + "," + String(weight[1], 0) + "," + String(weight[2], 0) + "," + String(weight[3], 0));
+    std::ostringstream ss;
+    ss << getLogIntervalMicros() << ",";
+    for (int i = 0; i < size; i++)
+    {
+        ss << weight[i];
+        if (i < size - 1)
+        {
+            ss << ",";
+        }
+    }
+    Serial1.println(ss.str().c_str());
 }

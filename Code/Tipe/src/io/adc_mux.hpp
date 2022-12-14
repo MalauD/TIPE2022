@@ -1,9 +1,5 @@
 #pragma once
 #include "../config/config.hpp"
-#include <Adafruit_ADS1X15.h>
-#include "FunctionalInterrupt.h"
-
-constexpr int ADC_MAX_COUNT = 4;
 
 enum AdcAddr
 {
@@ -13,9 +9,10 @@ enum AdcAddr
   ADC4 = 0x4B
 };
 
+template <std::size_t size>
 class AdcMuxReading
 {
-  int64_t values[ADC_MAX_COUNT];
+  std::array<int64_t, size> values;
   adsGain_t gain;
 
 public:
@@ -25,7 +22,6 @@ public:
   int16_t getAdcValueByIndex(size_t index);
   float getAdcValueByIndexInVolts(size_t addr);
   float getAdcValueByAddrInVolts(AdcAddr addr);
-  void convert_to_weight(Config *config, float *weights);
 };
 
 class AdcMux

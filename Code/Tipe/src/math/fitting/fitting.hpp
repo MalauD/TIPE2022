@@ -16,6 +16,8 @@ public:
 template <typename T>
 class FittingResultFactory
 {
+public:
     virtual std::unique_ptr<FittingResult<T>> calculateFitting(DataSet<T> data) = 0;
     virtual std::unique_ptr<FittingResult<T>> deserialize(std::string str) = 0;
+    virtual std::unique_ptr<FittingResult<T>> getDefault() = 0;
 };

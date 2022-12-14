@@ -137,7 +137,9 @@ void AdcMux::continuous_reading(uint8_t channel, std::function<void(AdcMuxReadin
     volatile bool new_data = false;
 
     attachInterrupt(
-        digitalPinToInterrupt(14), [&]() { new_data = true; }, FALLING);
+        digitalPinToInterrupt(14), [&]()
+        { new_data = true; },
+        FALLING);
     while (true)
     {
         if (new_data)
@@ -145,15 +147,5 @@ void AdcMux::continuous_reading(uint8_t channel, std::function<void(AdcMuxReadin
             new_data = false;
             callback(read());
         }
-    }
-}
-
-void AdcMuxReading::convert_to_weight(Config *config, float *weight)
-{
-    for (int i = 0; i < ADC_MAX_COUNT; i++)
-    {
-        auto linearRegressionResult = config->getFittingResultAt(i);
-        weight[i] =
-            (1 / getAdcValueByIndexInVolts(i)) * linearRegressionResult.slope + linearRegressionResult.intercept;
     }
 }

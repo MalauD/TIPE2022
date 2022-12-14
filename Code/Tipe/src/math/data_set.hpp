@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+
 template <typename T>
 struct DataPoint
 {
@@ -13,11 +15,11 @@ class DataSet
 
 public:
     DataSet();
-    size_t size();
+    std::size_t size();
     void appendDataPoint(DataPoint<T> dataPoint);
     void extend(DataSet<T> dataSet);
     void clear();
-    DataPoint<T> at(size_t index);
+    DataPoint<T> at(std::size_t index);
     T accumulate(T (*func)(DataPoint<T>));
 };
 
@@ -27,7 +29,7 @@ DataSet<T>::DataSet()
 }
 
 template <typename T>
-size_t DataSet<T>::size()
+std::size_t DataSet<T>::size()
 {
     return data.size();
 }
@@ -62,7 +64,7 @@ void DataSet<T>::clear()
 }
 
 template <typename T>
-DataPoint<T> DataSet<T>::at(size_t index)
+DataPoint<T> DataSet<T>::at(std::size_t index)
 {
     return data[index];
 }
