@@ -5,8 +5,7 @@
 #include <FunctionalInterrupt.h>
 #include <memory>
 
-enum ManagerMenus
-{
+enum ManagerMenus {
     CALIBRATION = 1,
     LOAD_CONFIG,
     SAVE_CONFIG,
@@ -17,9 +16,7 @@ enum ManagerMenus
     MEASUREMENT_RAW
 };
 
-template <typename T, std::size_t size>
-class Manager
-{
+template <typename T, std::size_t size> class Manager {
     CalInterface<T, size> interface;
     ConfigManager<T, size> configManager;
     Config<T, size> config;
@@ -29,14 +26,12 @@ class Manager
     void measureSerial(bool logRaw);
     void measureSD();
 
-public:
+  public:
     Manager();
     void run();
 };
 
-template <typename T, std::size_t size>
-ManagerMenus Manager<T, size>::menu()
-{
+template <typename T, std::size_t size> ManagerMenus Manager<T, size>::menu() {
     long choice = 0;
     Serial.println("Menu:");
     Serial.println("1. Start calibration");
@@ -47,8 +42,7 @@ ManagerMenus Manager<T, size>::menu()
     Serial.println("6. Start measurement (SD card)");
     Serial.println("7. Start measurement (Serial port)");
     Serial.println("8. Start measurement (Raw)");
-    while (choice <= 0 || choice >= 9)
-    {
+    while (choice <= 0 || choice >= 9) {
         while (!Serial.available())
             ;
         choice = Serial.parseInt();
@@ -58,8 +52,7 @@ ManagerMenus Manager<T, size>::menu()
 }
 
 template <typename T, std::size_t size>
-void Manager<T, size>::measureSerial(bool logRaw)
-{
+void Manager<T, size>::measureSerial(bool logRaw) {
     Serial.println("Press any key to start measurement (Serial).");
     while (!Serial.available())
         ;
@@ -79,25 +72,21 @@ void Manager<T, size>::measureSerial(bool logRaw)
 
     std::array<float, size> weight;
 
-    auto cb = [&](AdcMuxReading<size> reading)
-    {
+    auto cb = [&](AdcMuxReading<size> reading) {
         config.convertToWeight(reading.getValuesInVolt(), weight);
-        if (measure_count % 10 == 0)
-        {
-            if (logRaw)
-            {
+        if (measure_count % 10 == 0) {
+            if (logRaw) {
                 reading.print();
-            }
-            else
-            {
-                Serial.println("Weight: " + String(weight[0]) + "g, " + String(weight[1]) + "g, " + String(weight[2]) +
-                               "g, " + String(weight[3]) + "g, Rate: " + String(measure_rate) + "Hz");
+            } else {
+                Serial.println("Weight: " + String(weight[0]) + "g, " +
+                               String(weight[1]) + "g, " + String(weight[2]) +
+                               "g, " + String(weight[3]) +
+                               "g, Rate: " + String(measure_rate) + "Hz");
             }
         }
 
         measure_count++;
-        if (millis() - t > 1000)
-        {
+        if (millis() - t > 1000) {
             measure_rate = measure_count;
             t = millis();
             measure_count = 0;
@@ -107,9 +96,7 @@ void Manager<T, size>::measureSerial(bool logRaw)
     adc.continuous_reading(0, cb);
 }
 
-template <typename T, std::size_t size>
-void Manager<T, size>::measureSD()
-{
+template <typename T, std::size_t size> void Manager<T, size>::measureSD() {
     Serial.println("Starting measurement...");
     AdcMux<size> adc;
     adc.begin();
@@ -121,17 +108,14 @@ void Manager<T, size>::measureSD()
 
     int measure_rate = 0;
 
-    auto cb = [&](AdcMuxReading<size> reading)
-    {
+    auto cb = [&](AdcMuxReading<size> reading) {
         sdLogging.logWeights(reading, config);
-        if (measure_count % 10 == 0)
-        {
+        if (measure_count % 10 == 0) {
             Serial.println("Rate: " + String(measure_rate) + "Hz");
         }
 
         measure_count++;
-        if (millis() - t > 1000)
-        {
+        if (millis() - t > 1000) {
             measure_rate = measure_count;
             t = millis();
             measure_count = 0;
@@ -141,17 +125,13 @@ void Manager<T, size>::measureSD()
     adc.continuous_reading(0, cb);
 }
 
-template <typename T, std::size_t size>
-void Manager<T, size>::run()
-{
+template <typename T, std::size_t size> void Manager<T, size>::run() {
     configManager.begin();
     sdLogging.begin();
     config = configManager.getConfig();
     Wire.setClock(400000);
-    while (true)
-    {
-        switch (menu())
-        {
+    while (true) {
+        switch (menu()) {
         case CALIBRATION:
             interface.start(config);
             break;

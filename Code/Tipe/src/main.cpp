@@ -3,12 +3,9 @@
 
 Manager<float, 4> manager;
 
-void setup()
-{
+void setup() {
     Serial.begin(115200);
     manager.run();
 }
 
-void loop()
-{
-}
+void loop() {}

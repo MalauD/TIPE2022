@@ -1,58 +1,49 @@
 #include "config.hpp"
 
 template <typename T, std::size_t size>
-void Config<T, size>::serialize(std::ostream &os)
-{
+void Config<T, size>::serialize(std::ostream &os) {
     os << std::to_string(size) << '\n';
-    for (size_t i = 0; i < size; i++)
-    {
+    for (size_t i = 0; i < size; i++) {
         os << fittingResult[i].serialize() << '\n';
     }
-    for (size_t i = 0; i < size; i++)
-    {
+    for (size_t i = 0; i < size; i++) {
         os << std::to_string(dataSet[i].size()) << '\n';
-        for (size_t j = 0; j < dataSet[i].size(); j++)
-        {
+        for (size_t j = 0; j < dataSet[i].size(); j++) {
             auto point = dataSet[i].at(j);
-            os << std::to_string(point.x) << ',' << std::to_string(point.y) << '\n';
+            os << std::to_string(point.x) << ',' << std::to_string(point.y)
+               << '\n';
         }
     }
 }
 
 template <typename T, std::size_t size>
-std::unique_ptr<FittingResult<T>> Config<T, size>::getFittingResultAt(size_t index)
-{
+std::unique_ptr<FittingResult<T>>
+Config<T, size>::getFittingResultAt(size_t index) {
     return this->fittingResult[index];
 }
 
-std::vector<std::string> split(std::string str, char delimiter)
-{
+std::vector<std::string> split(std::string str, char delimiter) {
     std::vector<std::string> result;
     std::string token;
     std::stringstream ss(str);
-    while (std::getline(ss, token, delimiter))
-    {
+    while (std::getline(ss, token, delimiter)) {
         result.push_back(token);
     }
     return result;
 }
 
 template <typename T, std::size_t size>
-void Config<T, size>::deserialize(std::istream &is)
-{
+void Config<T, size>::deserialize(std::istream &is) {
     std::string line;
     std::getline(is, line);
-    for (size_t i = 0; i < size; i++)
-    {
+    for (size_t i = 0; i < size; i++) {
         std::getline(is, line);
         fittingResult[i] = FittingResultFactory<T>::deserialize(line);
     }
-    for (size_t i = 0; i < size; i++)
-    {
+    for (size_t i = 0; i < size; i++) {
         std::getline(is, line);
         auto size_d = std::stoi(line);
-        for (size_t j = 0; j < size_d; j++)
-        {
+        for (size_t j = 0; j < size_d; j++) {
             std::getline(is, line);
             auto values = split(line, ',');
             DataPoint<float> point;
@@ -63,30 +54,23 @@ void Config<T, size>::deserialize(std::istream &is)
     }
 }
 
-template <typename T, std::size_t size>
-void Config<T, size>::print()
-{
+template <typename T, std::size_t size> void Config<T, size>::print() {
     std::stringstream ss;
     serialize(ss);
     Serial.println(ss.str().c_str());
 }
 
 template <typename T, std::size_t size>
-ConfigManager<T, size>::ConfigManager()
-{
-}
+ConfigManager<T, size>::ConfigManager() {}
 
-template <typename T, std::size_t size>
-int ConfigManager<T, size>::begin()
-{
+template <typename T, std::size_t size> int ConfigManager<T, size>::begin() {
     // Serial.println("Formatting file system...");
     //  if (!LittleFS.format())
     //{
     //      Serial.println("File system format failed.");
     //      return 1;
     //  }
-    if (!LittleFS.begin())
-    {
+    if (!LittleFS.begin()) {
         Serial.println("Failed to start file system");
         return 1;
     }
@@ -95,18 +79,15 @@ int ConfigManager<T, size>::begin()
 }
 
 template <typename T, std::size_t size>
-Config<T, size> ConfigManager<T, size>::getConfig()
-{
+Config<T, size> ConfigManager<T, size>::getConfig() {
     Config<T, size> config;
     File file = LittleFS.open("/config.txt", "r");
-    if (!file)
-    {
+    if (!file) {
         Serial.println("Failed to open file for reading");
         return config;
     }
     std::stringstream ss;
-    while (file.available())
-    {
+    while (file.available()) {
         ss << (char)file.read();
     }
     Serial.println("File content:");
@@ -117,22 +98,18 @@ Config<T, size> ConfigManager<T, size>::getConfig()
 }
 
 template <typename T, std::size_t size>
-Config<T, size> Config<T, size>::getDefaultConfig()
-{
+Config<T, size> Config<T, size>::getDefaultConfig() {
     Config<T, size> config;
-    for (size_t i = 0; i < size; i++)
-    {
+    for (size_t i = 0; i < size; i++) {
         config->fittingResult[i] = FittingResultFactory<T>::getDefault();
     }
     return config;
 }
 
 template <typename T, std::size_t size>
-void ConfigManager<T, size>::saveConfig(Config<T, size> &config)
-{
+void ConfigManager<T, size>::saveConfig(Config<T, size> &config) {
     File file = LittleFS.open("/config.txt", "w");
-    if (!file)
-    {
+    if (!file) {
         Serial.println("Failed to open file for writing");
         return;
     }
@@ -143,34 +120,30 @@ void ConfigManager<T, size>::saveConfig(Config<T, size> &config)
 }
 
 template <typename T, std::size_t size>
-void Config<T, size>::setFittingResultAt(std::unique_ptr<FittingResult<T>> result, std::size_t index)
-{
+void Config<T, size>::setFittingResultAt(
+    std::unique_ptr<FittingResult<T>> result, std::size_t index) {
     this->fittingResult[index] = result;
 }
 
 template <typename T, std::size_t size>
-void Config<T, size>::setDatasetAt(DataSet<T> dataset, std::size_t index)
-{
+void Config<T, size>::setDatasetAt(DataSet<T> dataset, std::size_t index) {
     this->dataSet[index] = dataset;
 }
 
 template <typename T, std::size_t size>
-DataSet<T> Config<T, size>::getDatasetAt(std::size_t index)
-{
+DataSet<T> Config<T, size>::getDatasetAt(std::size_t index) {
     return this->dataSet[index];
 }
 
 template <typename T, std::size_t size>
-void Config<T, size>::extendDatasetAt(DataSet<T> dataset, std::size_t index)
-{
+void Config<T, size>::extendDatasetAt(DataSet<T> dataset, std::size_t index) {
     this->dataSet[index].extend(dataset);
 }
 
 template <typename T, std::size_t size>
-void Config<T, size>::convertToWeight(std::array<T, size> readings, std::array<T, size> weight)
-{
-    for (std::size_t i = 0; i < size; i++)
-    {
+void Config<T, size>::convertToWeight(std::array<T, size> readings,
+                                      std::array<T, size> weight) {
+    for (std::size_t i = 0; i < size; i++) {
         weight[i] = fittingResult[i]->calculateOutput(readings[i]);
     }
 }
