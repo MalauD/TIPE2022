@@ -4,7 +4,8 @@
 
 enum AdcAddr { ADC1 = 0x48, ADC2 = 0x49, ADC3 = 0x4A, ADC4 = 0x4B };
 
-template <std::size_t size> class AdcMuxReading {
+template <std::size_t size>
+class AdcMuxReading {
     std::array<int64_t, size> values;
     adsGain_t gain;
 
@@ -18,7 +19,8 @@ template <std::size_t size> class AdcMuxReading {
     float getAdcValueByAddrInVolts(AdcAddr addr);
 };
 
-template <std::size_t size> class AdcMux {
+template <std::size_t size>
+class AdcMux {
   private:
     std::array<Adafruit_ADS1115, size> adc;
     adsGain_t gain;

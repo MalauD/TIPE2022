@@ -52,7 +52,8 @@ AdcMuxReading<size>::AdcMuxReading(std::array<int64_t, size> values,
     gain = new_gain;
 }
 
-template <std::size_t size> void AdcMuxReading<size>::print() {
+template <std::size_t size>
+void AdcMuxReading<size>::print() {
     Serial.println("Gain: " + String(gain));
     for (int i = 0; i < 4; i++) {
         Serial.print("ADC" + String(i + 1) + ": " +
@@ -69,26 +70,30 @@ std::array<float, size> AdcMuxReading<size>::getValuesInVolt() {
     return f_array;
 }
 
-template <std::size_t size> AdcMux<size>::AdcMux() {
+template <std::size_t size>
+AdcMux<size>::AdcMux() {
     for (int i = 0; i < size; i++) {
         adc[i] = Adafruit_ADS1115();
     }
 };
 
-template <std::size_t size> void AdcMux<size>::set_gain(adsGain_t new_gain) {
+template <std::size_t size>
+void AdcMux<size>::set_gain(adsGain_t new_gain) {
     for (int i = 0; i < size; i++) {
         adc[i].setGain(new_gain);
     }
     gain = new_gain;
 }
 
-template <std::size_t size> void AdcMux<size>::set_rate(uint16_t rate) {
+template <std::size_t size>
+void AdcMux<size>::set_rate(uint16_t rate) {
     for (int i = 0; i < size; i++) {
         adc[i].setDataRate(rate);
     }
 }
 
-template <std::size_t size> void AdcMux<size>::begin() {
+template <std::size_t size>
+void AdcMux<size>::begin() {
     for (int i = 0; i < size; i++) {
         adc[i].begin(AdcAddr::ADC1 + i);
     }
@@ -111,7 +116,8 @@ AdcMuxReading<size> AdcMux<size>::one_shot_reading(uint8_t channel) {
     return AdcMuxReading(readings, gain);
 }
 
-template <std::size_t size> AdcMuxReading<size> AdcMux<size>::read() {
+template <std::size_t size>
+AdcMuxReading<size> AdcMux<size>::read() {
     std::array<int64_t, size> readings;
     for (int i = 0; i < size; i++) {
         readings[i] = adc[i].getLastConversionResults();

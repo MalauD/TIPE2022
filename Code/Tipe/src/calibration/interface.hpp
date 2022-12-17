@@ -4,7 +4,8 @@
 #include "../math/fitting/fitting.hpp"
 #include <Arduino.h>
 
-template <typename T, std::size_t size> class CalInterface {
+template <typename T, std::size_t size>
+class CalInterface {
     AdcMux<size> adc;
     DataSet<T> dataSet;
 

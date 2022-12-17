@@ -3,7 +3,8 @@
 #include <iostream>
 #include <memory>
 
-template <typename T> class FittingResult {
+template <typename T>
+class FittingResult {
 
   public:
     virtual void print() = 0;
@@ -11,7 +12,8 @@ template <typename T> class FittingResult {
     virtual std::string serialize() = 0;
 };
 
-template <typename T> class FittingResultFactory {
+template <typename T>
+class FittingResultFactory {
   public:
     virtual std::unique_ptr<FittingResult<T>>
     calculateFitting(DataSet<T> data) = 0;

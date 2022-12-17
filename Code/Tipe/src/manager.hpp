@@ -16,7 +16,8 @@ enum ManagerMenus {
     MEASUREMENT_RAW
 };
 
-template <typename T, std::size_t size> class Manager {
+template <typename T, std::size_t size>
+class Manager {
     CalInterface<T, size> interface;
     ConfigManager<T, size> configManager;
     Config<T, size> config;
@@ -31,7 +32,8 @@ template <typename T, std::size_t size> class Manager {
     void run();
 };
 
-template <typename T, std::size_t size> ManagerMenus Manager<T, size>::menu() {
+template <typename T, std::size_t size>
+ManagerMenus Manager<T, size>::menu() {
     long choice = 0;
     Serial.println("Menu:");
     Serial.println("1. Start calibration");
@@ -96,7 +98,8 @@ void Manager<T, size>::measureSerial(bool logRaw) {
     adc.continuous_reading(0, cb);
 }
 
-template <typename T, std::size_t size> void Manager<T, size>::measureSD() {
+template <typename T, std::size_t size>
+void Manager<T, size>::measureSD() {
     Serial.println("Starting measurement...");
     AdcMux<size> adc;
     adc.begin();
@@ -125,7 +128,8 @@ template <typename T, std::size_t size> void Manager<T, size>::measureSD() {
     adc.continuous_reading(0, cb);
 }
 
-template <typename T, std::size_t size> void Manager<T, size>::run() {
+template <typename T, std::size_t size>
+void Manager<T, size>::run() {
     configManager.begin();
     sdLogging.begin();
     config = configManager.getConfig();

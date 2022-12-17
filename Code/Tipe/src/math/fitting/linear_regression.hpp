@@ -4,7 +4,8 @@
 #include <math.h>
 #include <vector>
 
-template <typename T> class LinearRegression : public FittingResult<T> {
+template <typename T>
+class LinearRegression : public FittingResult<T> {
     T slope;
     T intercept;
     T r;
@@ -20,14 +21,16 @@ template <typename T> class LinearRegression : public FittingResult<T> {
     static FittingResult<T> &parse(std::string str) = 0
 };
 
-template <typename T> void LinearRegression<T>::print() {
+template <typename T>
+void LinearRegression<T>::print() {
     Serial.println("Linear Regression:");
     Serial.println("Slope: " + String(slope));
     Serial.println("Intercept: " + String(intercept));
     Serial.println("R: " + String(r));
 }
 
-template <typename T> FittingResult<T> calculateFitting(DataSet<T> data) {
+template <typename T>
+FittingResult<T> calculateFitting(DataSet<T> data) {
     T sx = data.accumulate([](DataPoint<T> dp) { return dp.x; });
     T sy = data.accumulate([](DataPoint<T> dp) { return dp.y; });
     T sxx = data.accumulate([](DataPoint<T> dp) { return dp.x * dp.x; });
@@ -45,7 +48,8 @@ template <typename T> FittingResult<T> calculateFitting(DataSet<T> data) {
     return LinearRegression<T>(slope, intercept, r);
 }
 
-template <typename T> T LinearRegression<T>::calculateOutput(T input) {
+template <typename T>
+T LinearRegression<T>::calculateOutput(T input) {
     return slope * input + intercept;
 }
 
@@ -55,7 +59,8 @@ std::ostream &operator<<(std::ostream &os, const LinearRegression<T> &fitting) {
     return os;
 }
 
-template <typename T> FittingResult<T> &parse(std::string str) {
+template <typename T>
+FittingResult<T> &parse(std::string str) {
     auto values = split(line, ',');
     FittingResult<T> fittingResult = new FittingResult<T>();
     fittingResult.slope = std::stof(values[0]);

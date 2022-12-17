@@ -54,7 +54,8 @@ void Config<T, size>::deserialize(std::istream &is) {
     }
 }
 
-template <typename T, std::size_t size> void Config<T, size>::print() {
+template <typename T, std::size_t size>
+void Config<T, size>::print() {
     std::stringstream ss;
     serialize(ss);
     Serial.println(ss.str().c_str());
@@ -63,7 +64,8 @@ template <typename T, std::size_t size> void Config<T, size>::print() {
 template <typename T, std::size_t size>
 ConfigManager<T, size>::ConfigManager() {}
 
-template <typename T, std::size_t size> int ConfigManager<T, size>::begin() {
+template <typename T, std::size_t size>
+int ConfigManager<T, size>::begin() {
     // Serial.println("Formatting file system...");
     //  if (!LittleFS.format())
     //{

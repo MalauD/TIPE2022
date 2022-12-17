@@ -7,7 +7,8 @@
 #include <sstream>
 #include <string>
 
-template <typename T, std::size_t size> class Config {
+template <typename T, std::size_t size>
+class Config {
     std::array<std::unique_ptr<FittingResult<T>>, size> fittingResult;
     std::array<DataSet<T>, size> dataSet;
 
@@ -28,7 +29,8 @@ template <typename T, std::size_t size> class Config {
                          std::array<T, size> weight);
 };
 
-template <typename T, std::size_t config_size> class ConfigManager {
+template <typename T, std::size_t config_size>
+class ConfigManager {
   public:
     ConfigManager();
     int begin();
