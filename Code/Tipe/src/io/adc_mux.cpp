@@ -1,16 +1,19 @@
 #include "adc_mux.hpp"
 
-int16_t AdcMuxReading::getAdcValueByAddr(AdcAddr addr)
+template <std::size_t size>
+int16_t AdcMuxReading<size>::getAdcValueByAddr(AdcAddr addr)
 {
     return values[addr - ADC1];
 }
 
-int16_t AdcMuxReading::getAdcValueByIndex(size_t index)
+template <std::size_t size>
+int16_t AdcMuxReading<size>::getAdcValueByIndex(size_t index)
 {
     return values[index];
 }
 
-float AdcMuxReading::getAdcValueByAddrInVolts(AdcAddr addr)
+template <std::size_t size>
+float AdcMuxReading<size>::getAdcValueByAddrInVolts(AdcAddr addr)
 {
     float fsRange;
     switch (gain)
@@ -39,21 +42,24 @@ float AdcMuxReading::getAdcValueByAddrInVolts(AdcAddr addr)
     return getAdcValueByAddr(addr) * (fsRange / 32768);
 }
 
-float AdcMuxReading::getAdcValueByIndexInVolts(size_t index)
+template <std::size_t size>
+float AdcMuxReading<size>::getAdcValueByIndexInVolts(size_t index)
 {
     return getAdcValueByAddrInVolts(static_cast<AdcAddr>((int)ADC1 + index));
 }
 
-AdcMuxReading::AdcMuxReading(int16_t adc1, int16_t adc2, int16_t adc3, int16_t adc4, adsGain_t new_gain)
+template <std::size_t size>
+AdcMuxReading<size>::AdcMuxReading(std::array<int64_t, size> values, adsGain_t new_gain)
 {
-    values[0] = adc1;
-    values[1] = adc2;
-    values[2] = adc3;
-    values[3] = adc4;
+    for (int i = 0; i < size; i++)
+    {
+        this->values[i] = values[i];
+    }
     gain = new_gain;
 }
 
-void AdcMuxReading::print()
+template <std::size_t size>
+void AdcMuxReading<size>::print()
 {
     Serial.println("Gain: " + String(gain));
     for (int i = 0; i < 4; i++)
@@ -64,71 +70,87 @@ void AdcMuxReading::print()
     Serial.println();
 }
 
-AdcMux::AdcMux()
+template <std::size_t size>
+std::array<float, size> AdcMuxReading<size>::getValuesInVolt()
 {
-    adc_count = 4;
-    adc = (Adafruit_ADS1115 *)malloc(sizeof(Adafruit_ADS1115) * adc_count);
-    for (int i = 0; i < adc_count; i++)
+    std::array<float, size> f_array;
+    std::copy(values.begin(), values.end(), values.begin());
+    return f_array;
+}
+
+template <std::size_t size>
+AdcMux<size>::AdcMux()
+{
+    for (int i = 0; i < size; i++)
     {
         adc[i] = Adafruit_ADS1115();
     }
 };
 
-void AdcMux::set_gain(adsGain_t new_gain)
+template <std::size_t size>
+void AdcMux<size>::set_gain(adsGain_t new_gain)
 {
-    for (int i = 0; i < adc_count; i++)
+    for (int i = 0; i < size; i++)
     {
         adc[i].setGain(new_gain);
     }
     gain = new_gain;
 }
 
-void AdcMux::set_rate(uint16_t rate)
+template <std::size_t size>
+void AdcMux<size>::set_rate(uint16_t rate)
 {
-    for (int i = 0; i < adc_count; i++)
+    for (int i = 0; i < size; i++)
     {
         adc[i].setDataRate(rate);
     }
 }
 
-void AdcMux::begin()
+template <std::size_t size>
+void AdcMux<size>::begin()
 {
-    adc[0].begin(AdcAddr::ADC1);
-    adc[1].begin(AdcAddr::ADC2);
-    adc[2].begin(AdcAddr::ADC3);
-    adc[3].begin(AdcAddr::ADC4);
+    for (int i = 0; i < size; i++)
+    {
+        adc[i].begin(AdcAddr::ADC1 + i);
+    }
     set_gain(GAIN_TWOTHIRDS);
 }
 
-void AdcMux::start_adc_reading(uint8_t mux, bool continuous)
+template <std::size_t size>
+void AdcMux<size>::start_adc_reading(uint8_t mux, bool continuous)
 {
-    for (int i = 0; i < adc_count; i++)
+    for (int i = 0; i < size; i++)
     {
         adc[i].startADCReading(mux, continuous);
     }
 }
 
-AdcMuxReading AdcMux::one_shot_reading(uint8_t channel)
+template <std::size_t size>
+AdcMuxReading<size> AdcMux<size>::one_shot_reading(uint8_t channel)
 {
-    int16_t adc1 = adc[0].readADC_SingleEnded(channel);
-    int16_t adc2 = adc[1].readADC_SingleEnded(channel);
-    int16_t adc3 = adc[2].readADC_SingleEnded(channel);
-    int16_t adc4 = adc[3].readADC_SingleEnded(channel);
-    return AdcMuxReading(adc1, adc2, adc3, adc4, gain);
+    std::array<int64_t, size> readings;
+    for (int i = 0; i < size; i++)
+    {
+        readings[i] = adc[i].readADC_SingleEnded(channel);
+    }
+    return AdcMuxReading(readings, gain);
 }
 
-AdcMuxReading AdcMux::read()
+template <std::size_t size>
+AdcMuxReading<size> AdcMux<size>::read()
 {
-    int16_t adc1 = adc[0].getLastConversionResults();
-    int16_t adc2 = adc[1].getLastConversionResults();
-    int16_t adc3 = adc[2].getLastConversionResults();
-    int16_t adc4 = adc[3].getLastConversionResults();
-    return AdcMuxReading(adc1, adc2, adc3, adc4, gain);
+    std::array<int64_t, size> readings;
+    for (int i = 0; i < size; i++)
+    {
+        readings[i] = adc[i].getLastConversionResults();
+    }
+    return AdcMuxReading(readings, gain);
 }
 
-void AdcMux::continuous_reading(uint8_t channel, std::function<void(AdcMuxReading)> callback)
+template <std::size_t size>
+void AdcMux<size>::continuous_reading(uint8_t channel, std::function<void(AdcMuxReading<size>)> callback)
 {
-    for (int i = 0; i < ADC_MAX_COUNT; i++)
+    for (int i = 0; i < size; i++)
     {
         adc[i].startADCReading(MUX_BY_CHANNEL[channel], true);
     }

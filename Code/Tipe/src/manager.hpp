@@ -3,6 +3,7 @@
 #include "./io/sd_logging.hpp"
 #include "Arduino.h"
 #include <FunctionalInterrupt.h>
+#include <memory>
 
 enum ManagerMenus
 {
@@ -16,28 +17,25 @@ enum ManagerMenus
     MEASUREMENT_RAW
 };
 
+template <typename T, std::size_t size>
 class Manager
 {
-    CalInterface interface;
-    ConfigManager configManager;
-    Config *config;
+    CalInterface<T, size> interface;
+    ConfigManager<T, size> configManager;
+    Config<T, size> config;
     SDLogging sdLogging;
 
     ManagerMenus menu();
-    void measureSerial(Config *config, bool logRaw);
-    void measureSD(Config *config);
+    void measureSerial(bool logRaw);
+    void measureSD();
 
 public:
     Manager();
     void run();
 };
 
-Manager::Manager() : interface(CalInterface()), configManager(ConfigManager()), sdLogging(SDLogging())
-{
-    Config();
-}
-
-ManagerMenus Manager::menu()
+template <typename T, std::size_t size>
+ManagerMenus Manager<T, size>::menu()
 {
     long choice = 0;
     Serial.println("Menu:");
@@ -59,14 +57,15 @@ ManagerMenus Manager::menu()
     return static_cast<ManagerMenus>(choice);
 }
 
-void Manager::measureSerial(Config *config, bool logRaw = false)
+template <typename T, std::size_t size>
+void Manager<T, size>::measureSerial(bool logRaw)
 {
     Serial.println("Press any key to start measurement (Serial).");
     while (!Serial.available())
         ;
     Serial.read();
     Serial.println("Starting measurement...");
-    AdcMux adc;
+    AdcMux<size> adc;
     adc.begin();
     adc.set_gain(GAIN_ONE);
     adc.set_rate(RATE_ADS1115_860SPS);
@@ -78,11 +77,11 @@ void Manager::measureSerial(Config *config, bool logRaw = false)
 
     int measure_rate = 0;
 
-    float weight[ADC_MAX_COUNT];
+    std::array<float, size> weight;
 
-    auto cb = [&](AdcMuxReading reading)
+    auto cb = [&](AdcMuxReading<size> reading)
     {
-        reading.convert_to_weight(config, weight);
+        config.convertToWeight(reading.getValuesInVolt(), weight);
         if (measure_count % 10 == 0)
         {
             if (logRaw)
@@ -108,10 +107,11 @@ void Manager::measureSerial(Config *config, bool logRaw = false)
     adc.continuous_reading(0, cb);
 }
 
-void Manager::measureSD(Config *config)
+template <typename T, std::size_t size>
+void Manager<T, size>::measureSD()
 {
     Serial.println("Starting measurement...");
-    AdcMux adc;
+    AdcMux<size> adc;
     adc.begin();
     adc.set_gain(GAIN_ONE);
     adc.set_rate(RATE_ADS1115_860SPS);
@@ -121,7 +121,7 @@ void Manager::measureSD(Config *config)
 
     int measure_rate = 0;
 
-    auto cb = [&](AdcMuxReading reading)
+    auto cb = [&](AdcMuxReading<size> reading)
     {
         sdLogging.logWeights(reading, config);
         if (measure_count % 10 == 0)
@@ -141,7 +141,8 @@ void Manager::measureSD(Config *config)
     adc.continuous_reading(0, cb);
 }
 
-void Manager::run()
+template <typename T, std::size_t size>
+void Manager<T, size>::run()
 {
     configManager.begin();
     sdLogging.begin();
@@ -158,25 +159,26 @@ void Manager::run()
             config = configManager.getConfig();
             break;
         case SAVE_CONFIG:
-            configManager.saveConfig(*config);
+            configManager.saveConfig(config);
             break;
         case VIEW_CONFIG:
-            config->print();
+            config.print();
             break;
         case LOAD_DEFAULT_CONFIG:
-            config = Config::getDefaultConfig();
+            config = Config<T, size>::getDefaultConfig();
             break;
         case MEASUREMENT_SD:
-            measureSD(config);
+            measureSD();
             break;
         case MEASUREMENT_SERIAL:
-            measureSerial(config);
+            measureSerial(false);
             break;
         case MEASUREMENT_RAW:
-            measureSerial(config, true);
+            measureSerial(true);
             break;
         default:
             break;
         }
+        delay(100);
     }
 }

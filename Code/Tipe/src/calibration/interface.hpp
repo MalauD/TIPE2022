@@ -7,10 +7,10 @@
 template <typename T, std::size_t size>
 class CalInterface
 {
-  AdcMux adc;
+  AdcMux<size> adc;
   DataSet<T> dataSet;
 
 public:
-  CalInterface() : adc(AdcMux()){};
-  void start(std::unique_ptr<Config<T, size>> config);
+  CalInterface(){};
+  void start(Config<T, size> &config);
 };

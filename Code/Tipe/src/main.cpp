@@ -1,7 +1,7 @@
 #include "manager.hpp"
 #include <Arduino.h>
 
-Manager manager;
+Manager<float, 4> manager;
 
 void setup()
 {

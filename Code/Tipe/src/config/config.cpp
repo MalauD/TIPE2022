@@ -95,9 +95,9 @@ int ConfigManager<T, size>::begin()
 }
 
 template <typename T, std::size_t size>
-std::unique_ptr<Config<T, size>> ConfigManager<T, size>::getConfig()
+Config<T, size> ConfigManager<T, size>::getConfig()
 {
-    auto config = std::make_unique<Config<T, size>>(new Config<T, size>());
+    Config<T, size> config;
     File file = LittleFS.open("/config.txt", "r");
     if (!file)
     {
@@ -117,9 +117,9 @@ std::unique_ptr<Config<T, size>> ConfigManager<T, size>::getConfig()
 }
 
 template <typename T, std::size_t size>
-std::unique_ptr<Config<T, size>> Config<T, size>::getDefaultConfig()
+Config<T, size> Config<T, size>::getDefaultConfig()
 {
-    auto config = std::make_unique<Config<T, size>>(new Config<T, size>());
+    Config<T, size> config;
     for (size_t i = 0; i < size; i++)
     {
         config->fittingResult[i] = FittingResultFactory<T>::getDefault();
@@ -128,7 +128,7 @@ std::unique_ptr<Config<T, size>> Config<T, size>::getDefaultConfig()
 }
 
 template <typename T, std::size_t size>
-void ConfigManager<T, size>::saveConfig(std::unique_ptr<Config<T, size>> config)
+void ConfigManager<T, size>::saveConfig(Config<T, size> &config)
 {
     File file = LittleFS.open("/config.txt", "w");
     if (!file)
@@ -171,6 +171,6 @@ void Config<T, size>::convertToWeight(std::array<T, size> readings, std::array<T
 {
     for (std::size_t i = 0; i < size; i++)
     {
-        weight[i] = fittingResult[i]->calculateOutput(readings[i])
+        weight[i] = fittingResult[i]->calculateOutput(readings[i]);
     }
 }

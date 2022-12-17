@@ -1,7 +1,7 @@
 #include "interface.hpp"
 
 template <typename T, std::size_t size>
-void CalInterface<T, size>::start(std::unique_ptr<Config<T, size>> config)
+void CalInterface<T, size>::start(Config<T, size> &config)
 {
     Serial.println("Starting calibration");
     Serial.println("Test:");

@@ -10,7 +10,7 @@ public:
     SDLogging(){};
     void begin();
     template <typename T, std::size_t size>
-    void logWeights(AdcMuxReading reading, std::unique_ptr<Config<T, size>> config);
+    void logWeights(AdcMuxReading<size> reading, Config<T, size> &config);
     unsigned long getLogIntervalMicros()
     {
         auto now = micros();
@@ -27,13 +27,13 @@ void SDLogging::begin()
 }
 
 template <typename T, std::size_t size>
-void SDLogging::logWeights(AdcMuxReading reading, std::unique_ptr<Config<T, size>> config)
+void SDLogging::logWeights(AdcMuxReading<size> reading, Config<T, size> &config)
 {
-    T weight[size];
-    reading.convert_to_weight(config, weight);
+    std::array<T, size> weight;
+    config.convertToWeight(reading.getValuesInVolt(), weight);
     std::ostringstream ss;
     ss << getLogIntervalMicros() << ",";
-    for (int i = 0; i < size; i++)
+    for (std::size_t i = 0; i < size; i++)
     {
         ss << weight[i];
         if (i < size - 1)
