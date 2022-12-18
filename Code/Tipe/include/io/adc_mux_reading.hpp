@@ -85,7 +85,9 @@ void AdcMuxReading<size>::print() {
 template <std::size_t size>
 std::array<float, size> AdcMuxReading<size>::getValuesInVolt() {
     std::array<float, size> f_array;
-    std::copy(values.begin(), values.end(), f_array.begin());
+    for (std::size_t i = 0; i < size; i++) {
+        f_array[i] = getAdcValueByIndexInVolts(i);
+    }
     return f_array;
 }
 

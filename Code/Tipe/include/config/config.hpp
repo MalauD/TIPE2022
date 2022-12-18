@@ -31,7 +31,7 @@ class Config {
     void setDatasetAt(DataSet<T> dataset, std::size_t index);
     DataSet<T> getDatasetAt(std::size_t index);
     void convertToWeight(std::array<T, size> readings,
-                         std::array<T, size> weight);
+                         std::array<T, size> &weight);
 };
 
 template <typename T, std::size_t size>
@@ -109,6 +109,7 @@ template <typename T, std::size_t size>
 void Config<T, size>::setToDefault() {
     for (size_t i = 0; i < size; i++) {
         fittingResult[i].reset(fittingResultFactory->getDefault().release());
+        dataSet[i].clear();
     }
 }
 
@@ -140,7 +141,7 @@ void Config<T, size>::extendDatasetAt(DataSet<T> dataset, std::size_t index) {
 
 template <typename T, std::size_t size>
 void Config<T, size>::convertToWeight(std::array<T, size> readings,
-                                      std::array<T, size> weight) {
+                                      std::array<T, size> &weight) {
     for (std::size_t i = 0; i < size; i++) {
         weight[i] = fittingResult[i]->calculateOutput(readings[i]);
     }

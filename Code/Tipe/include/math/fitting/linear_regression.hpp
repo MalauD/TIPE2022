@@ -59,7 +59,7 @@ LinearRegressionFactory<T>::calculateFitting(DataSet<T> &data) {
 
 template <typename T>
 T LinearRegression<T>::calculateOutput(T input) {
-    return slope * input + intercept;
+    return slope * (1 / input) + intercept;
 }
 
 template <typename T>
