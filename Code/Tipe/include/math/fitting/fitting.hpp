@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MATH_FITTING_FITTING_HPP
+#define MATH_FITTING_FITTING_HPP
+
 #include "../data_set.hpp"
 #include <iostream>
 #include <memory>
@@ -20,3 +22,5 @@ class FittingResultFactory {
     virtual std::unique_ptr<FittingResult<T>>
     calculateFitting(DataSet<T> &data) = 0;
 };
+
+#endif

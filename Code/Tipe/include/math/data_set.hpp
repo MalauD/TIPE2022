@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MATH_DATA_SET_HPP
+#define MATH_DATA_SET_HPP
+
 #include <vector>
 
 template <typename T>
@@ -12,7 +14,7 @@ class DataSet {
     std::vector<DataPoint<T>> data;
 
   public:
-    DataSet();
+    DataSet() = default;
     std::size_t size();
     void appendDataPoint(DataPoint<T> dataPoint);
     void extend(DataSet<T> dataSet);
@@ -20,9 +22,6 @@ class DataSet {
     DataPoint<T> at(std::size_t index);
     T accumulate(T (*func)(DataPoint<T>));
 };
-
-template <typename T>
-DataSet<T>::DataSet() {}
 
 template <typename T>
 std::size_t DataSet<T>::size() {
@@ -57,3 +56,5 @@ template <typename T>
 DataPoint<T> DataSet<T>::at(std::size_t index) {
     return data[index];
 }
+
+#endif

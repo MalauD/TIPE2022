@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IO_SD_LOGGING_HPP
+#define IO_SD_LOGGING_HPP
+
 #include "./adc_mux.hpp"
 #include "Arduino.h"
 
@@ -6,7 +8,7 @@ class SDLogging {
     unsigned long lastLogTime = 0;
 
   public:
-    SDLogging(){};
+    SDLogging() = default;
     void begin();
     template <typename T, std::size_t size>
     void logWeights(AdcMuxReading<size> reading, Config<T, size> &config);
@@ -38,3 +40,5 @@ void SDLogging::logWeights(AdcMuxReading<size> reading,
     }
     Serial1.println(ss.str().c_str());
 }
+
+#endif

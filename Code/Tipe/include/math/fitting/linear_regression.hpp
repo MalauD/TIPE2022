@@ -1,7 +1,9 @@
-#pragma once
+#ifndef MATH_FITTING_LINEAR_REGRESSION_HPP
+#define MATH_FITTING_LINEAR_REGRESSION_HPP
+
 #include "../data_set.hpp"
 #include "fitting.hpp"
-#include <math.h>
+#include <cmath>
 #include <vector>
 
 template <typename T>
@@ -49,7 +51,8 @@ LinearRegressionFactory<T>::calculateFitting(DataSet<T> &data) {
     T intercept = (sy - slope * sx) / dataSetSize;
 
     T r = (dataSetSize * sxy - sx * sy) /
-          sqrt((dataSetSize * sxx - sx * sx) * (dataSetSize * syy - sy * sy));
+          std::sqrt((dataSetSize * sxx - sx * sx) *
+                    (dataSetSize * syy - sy * sy));
 
     return std::make_unique<LinearRegression<T>>(slope, intercept, r);
 }
@@ -76,3 +79,5 @@ template <typename T>
 std::unique_ptr<FittingResult<T>> LinearRegressionFactory<T>::getDefault() {
     return std::make_unique<LinearRegression<T>>(0, 0, 0);
 }
+
+#endif

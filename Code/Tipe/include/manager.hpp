@@ -1,5 +1,9 @@
+#ifndef MANAGER_HPP
+#define MANAGER_HPP
+
 #include "./calibration/interface.hpp"
 #include "./config/config.hpp"
+#include "./config/config_manager.hpp"
 #include "./io/sd_logging.hpp"
 #include "Arduino.h"
 #include <FunctionalInterrupt.h>
@@ -69,7 +73,7 @@ void Manager<T, size>::measureSerial(bool logRaw) {
 
     // adc.start_adc_reading(ADS1X15_REG_CONFIG_MUX_SINGLE_0, false);
 
-    int t = millis();
+    unsigned long t = millis();
     int measure_count = 0;
 
     int measure_rate = 0;
@@ -108,7 +112,7 @@ void Manager<T, size>::measureSD() {
     adc.set_gain(GAIN_ONE);
     adc.set_rate(RATE_ADS1115_860SPS);
 
-    int t = millis();
+    unsigned long t = millis();
     int measure_count = 0;
 
     int measure_rate = 0;
@@ -168,3 +172,5 @@ void Manager<T, size>::run() {
         delay(100);
     }
 }
+
+#endif

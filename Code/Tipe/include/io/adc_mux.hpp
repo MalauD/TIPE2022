@@ -1,23 +1,9 @@
-#pragma once
+#ifndef IO_ADC_MUX_HPP
+#define IO_ADC_MUX_HPP
+
 #include "../config/config.hpp"
 #include "Adafruit_ADS1X15.h"
-
-enum AdcAddr { ADC1 = 0x48, ADC2 = 0x49, ADC3 = 0x4A, ADC4 = 0x4B };
-
-template <std::size_t size>
-class AdcMuxReading {
-    std::array<int64_t, size> values;
-    adsGain_t gain;
-
-  public:
-    AdcMuxReading(std::array<int64_t, size> values, adsGain_t gain);
-    void print();
-    std::array<float, size> getValuesInVolt();
-    int16_t getAdcValueByAddr(AdcAddr addr);
-    int16_t getAdcValueByIndex(size_t index);
-    float getAdcValueByIndexInVolts(size_t addr);
-    float getAdcValueByAddrInVolts(AdcAddr addr);
-};
+#include "adc_mux_reading.hpp"
 
 template <std::size_t size>
 class AdcMux {
@@ -36,74 +22,6 @@ class AdcMux {
     void continuous_reading(uint8_t channel,
                             std::function<void(AdcMuxReading<size>)> callback);
 };
-
-template <std::size_t size>
-int16_t AdcMuxReading<size>::getAdcValueByAddr(AdcAddr addr) {
-    return values[addr - ADC1];
-}
-
-template <std::size_t size>
-int16_t AdcMuxReading<size>::getAdcValueByIndex(size_t index) {
-    return values[index];
-}
-
-template <std::size_t size>
-float AdcMuxReading<size>::getAdcValueByAddrInVolts(AdcAddr addr) {
-    float fsRange;
-    switch (gain) {
-    case GAIN_TWOTHIRDS:
-        fsRange = 6.144f;
-        break;
-    case GAIN_ONE:
-        fsRange = 4.096f;
-        break;
-    case GAIN_TWO:
-        fsRange = 2.048f;
-        break;
-    case GAIN_FOUR:
-        fsRange = 1.024f;
-        break;
-    case GAIN_EIGHT:
-        fsRange = 0.512f;
-        break;
-    case GAIN_SIXTEEN:
-        fsRange = 0.256f;
-        break;
-    default:
-        fsRange = 0.0f;
-    }
-    return getAdcValueByAddr(addr) * (fsRange / 32768);
-}
-
-template <std::size_t size>
-float AdcMuxReading<size>::getAdcValueByIndexInVolts(size_t index) {
-    return getAdcValueByAddrInVolts(static_cast<AdcAddr>((int)ADC1 + index));
-}
-
-template <std::size_t size>
-AdcMuxReading<size>::AdcMuxReading(std::array<int64_t, size> values,
-                                   adsGain_t new_gain) {
-    std::copy(values.begin(), values.end(), this->values.begin());
-    gain = new_gain;
-}
-
-template <std::size_t size>
-void AdcMuxReading<size>::print() {
-    Serial.println("Gain: " + String(gain));
-    for (std::size_t i = 0; i < size; i++) {
-        Serial.print("ADC" + String(i + 1) + ": " +
-                     String(getAdcValueByIndexInVolts(i), 4) + "V (" +
-                     String(getAdcValueByIndex(i)) + ") ");
-    }
-    Serial.println();
-}
-
-template <std::size_t size>
-std::array<float, size> AdcMuxReading<size>::getValuesInVolt() {
-    std::array<float, size> f_array;
-    std::copy(values.begin(), values.end(), f_array.begin());
-    return f_array;
-}
 
 template <std::size_t size>
 AdcMux<size>::AdcMux() {
@@ -179,3 +97,5 @@ void AdcMux<size>::continuous_reading(
         }
     }
 }
+
+#endif

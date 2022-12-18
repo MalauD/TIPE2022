@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CALIBRATION_INTERFACE_HPP
+#define CALIBRATION_INTERFACE_HPP
+
 #include "../config/config.hpp"
 #include "../io/adc_mux.hpp"
 #include "../math/fitting/fitting.hpp"
@@ -10,7 +12,7 @@ class CalInterface {
     DataSet<T> dataSet;
 
   public:
-    CalInterface(){};
+    CalInterface() = default;
     void start(Config<T, size> &config);
 };
 
@@ -35,13 +37,14 @@ void CalInterface<T, size>::start(Config<T, size> &config) {
         if (choice == 'y') {
             Serial.println("Extending config");
             break;
-        } else if (choice == 'n') {
+        }
+        if (choice == 'n') {
             Serial.println("Not extending config");
             break;
         }
     }
     Serial.println("Choose a channel to calibrate (1-4):");
-    int channel = 0;
+    long channel = 0;
     while (channel <= 0 || channel >= 5) {
         while (!Serial.available())
             ;
@@ -81,3 +84,4 @@ void CalInterface<T, size>::start(Config<T, size> &config) {
     config.calculateFittingResultAt(channel - 1);
     config.printFittingResultAt(channel - 1);
 }
+#endif
