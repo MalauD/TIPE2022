@@ -28,7 +28,9 @@ class Manager {
     void measureSD();
 
   public:
-    Manager();
+    Manager() = delete;
+    Manager(std::unique_ptr<FittingResultFactory<T>> fittingType)
+        : config(Config<T, size>{std::move(fittingType)}) {}
     void run();
 };
 
@@ -132,7 +134,7 @@ template <typename T, std::size_t size>
 void Manager<T, size>::run() {
     configManager.begin();
     sdLogging.begin();
-    config = configManager.getConfig();
+    configManager.retreiveConfig(config);
     Wire.setClock(400000);
     while (true) {
         switch (menu()) {
@@ -140,7 +142,7 @@ void Manager<T, size>::run() {
             interface.start(config);
             break;
         case LOAD_CONFIG:
-            config = configManager.getConfig();
+            configManager.retreiveConfig(config);
             break;
         case SAVE_CONFIG:
             configManager.saveConfig(config);
@@ -149,7 +151,7 @@ void Manager<T, size>::run() {
             config.print();
             break;
         case LOAD_DEFAULT_CONFIG:
-            config = Config<T, size>::getDefaultConfig();
+            config.setToDefault();
             break;
         case MEASUREMENT_SD:
             measureSD();

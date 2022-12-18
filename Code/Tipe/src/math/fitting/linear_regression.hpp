@@ -12,13 +12,18 @@ class LinearRegression : public FittingResult<T> {
 
   public:
     LinearRegression(T slope, T intercept, T r)
-        : slope(slope), intercept(intercept), r(r){};
+        : slope(slope), intercept(intercept), r(r) {}
     void print();
-    static FittingResult<T> &calculateFitting(DataSet<T> data) = 0;
     T calculateOutput(T input);
-    friend std::ostream &operator<<(std::ostream &stream,
-                                    const LinearRegression &fitting);
-    static FittingResult<T> &parse(std::string str) = 0
+    void serialize(std::ostream &os);
+};
+
+template <typename T>
+class LinearRegressionFactory : public FittingResultFactory<T> {
+  public:
+    std::unique_ptr<FittingResult<T>> deserialize(std::string str);
+    std::unique_ptr<FittingResult<T>> getDefault();
+    std::unique_ptr<FittingResult<T>> calculateFitting(DataSet<T> &data);
 };
 
 template <typename T>
@@ -30,7 +35,8 @@ void LinearRegression<T>::print() {
 }
 
 template <typename T>
-FittingResult<T> calculateFitting(DataSet<T> data) {
+std::unique_ptr<FittingResult<T>>
+LinearRegressionFactory<T>::calculateFitting(DataSet<T> &data) {
     T sx = data.accumulate([](DataPoint<T> dp) { return dp.x; });
     T sy = data.accumulate([](DataPoint<T> dp) { return dp.y; });
     T sxx = data.accumulate([](DataPoint<T> dp) { return dp.x * dp.x; });
@@ -45,7 +51,7 @@ FittingResult<T> calculateFitting(DataSet<T> data) {
     T r = (dataSetSize * sxy - sx * sy) /
           sqrt((dataSetSize * sxx - sx * sx) * (dataSetSize * syy - sy * sy));
 
-    return LinearRegression<T>(slope, intercept, r);
+    return std::make_unique<LinearRegression<T>>(slope, intercept, r);
 }
 
 template <typename T>
@@ -54,17 +60,19 @@ T LinearRegression<T>::calculateOutput(T input) {
 }
 
 template <typename T>
-std::ostream &operator<<(std::ostream &os, const LinearRegression<T> &fitting) {
-    os << fitting.slope << "," << fitting.intercept << "," << fitting.r;
-    return os;
+void LinearRegression<T>::serialize(std::ostream &os) {
+    os << slope << "," << intercept << "," << r;
 }
 
 template <typename T>
-FittingResult<T> &parse(std::string str) {
-    auto values = split(line, ',');
-    FittingResult<T> fittingResult = new FittingResult<T>();
-    fittingResult.slope = std::stof(values[0]);
-    fittingResult.intercept = std::stof(values[1]);
-    fittingResult.r = std::stof(values[2]);
-    return fittingResult;
+std::unique_ptr<FittingResult<T>>
+LinearRegressionFactory<T>::deserialize(std::string str) {
+    auto values = split(str, ',');
+    return std::make_unique<LinearRegression<T>>(
+        std::stof(values[0]), std::stof(values[1]), std::stof(values[2]));
+}
+
+template <typename T>
+std::unique_ptr<FittingResult<T>> LinearRegressionFactory<T>::getDefault() {
+    return std::make_unique<LinearRegression<T>>(0, 0, 0);
 }
