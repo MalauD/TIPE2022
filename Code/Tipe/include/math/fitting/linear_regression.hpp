@@ -38,7 +38,10 @@ void LinearRegression<T>::print() {
 
 template <typename T>
 std::unique_ptr<FittingResult<T>>
-LinearRegressionFactory<T>::calculateFitting(DataSet<T> &data) {
+LinearRegressionFactory<T>::calculateFitting(DataSet<T> &data_inv) {
+    auto data = data_inv.map([](DataPoint<T> dp) {
+        return DataPoint<T>{1 / dp.x, dp.y};
+    });
     T sx = data.accumulate([](DataPoint<T> dp) { return dp.x; });
     T sy = data.accumulate([](DataPoint<T> dp) { return dp.y; });
     T sxx = data.accumulate([](DataPoint<T> dp) { return dp.x * dp.x; });

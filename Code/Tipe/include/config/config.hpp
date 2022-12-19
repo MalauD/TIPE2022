@@ -90,9 +90,8 @@ void Config<T, size>::deserialize(std::istream &is) {
         for (size_t j = 0; j < size_d; j++) {
             std::getline(is, line);
             auto values = split(line, ',');
-            DataPoint<float> point;
-            point.x = std::stof(values[0]);
-            point.y = std::stof(values[1]);
+            auto point =
+                DataPoint<float>{std::stof(values[0]), std::stof(values[1])};
             dataSet[i].appendDataPoint(point);
         }
     }

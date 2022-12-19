@@ -4,7 +4,9 @@
 #include <vector>
 
 template <typename T>
-struct DataPoint {
+class DataPoint {
+  public:
+    DataPoint(T x, T y) : x(x), y(y) {}
     T x;
     T y;
 };
@@ -21,6 +23,7 @@ class DataSet {
     void clear();
     DataPoint<T> at(std::size_t index);
     T accumulate(T (*func)(DataPoint<T>));
+    DataSet<T> map(DataPoint<T> (*func)(DataPoint<T>));
 };
 
 template <typename T>
@@ -33,6 +36,15 @@ T DataSet<T>::accumulate(T (*func)(DataPoint<T>)) {
     T result = 0;
     for (auto dataPoint : data) {
         result += func(dataPoint);
+    }
+    return result;
+}
+
+template <typename T>
+DataSet<T> DataSet<T>::map(DataPoint<T> (*func)(DataPoint<T>)) {
+    DataSet<T> result;
+    for (auto dataPoint : data) {
+        result.appendDataPoint(func(dataPoint));
     }
     return result;
 }

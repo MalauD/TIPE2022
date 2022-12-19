@@ -20,6 +20,10 @@ enum ManagerMenus {
     MEASUREMENT_RAW
 };
 
+constexpr float LOGGING_RATE_TARGET_HZ = 90;
+constexpr float LOGGING_INTERVAL_MICROS =
+    1.0 / LOGGING_RATE_TARGET_HZ * std::pow(10.0, 6);
+
 template <typename T, std::size_t size>
 class Manager {
     CalInterface<T, size> interface;
@@ -73,32 +77,27 @@ void Manager<T, size>::measureSerial(bool logRaw) {
 
     // adc.start_adc_reading(ADS1X15_REG_CONFIG_MUX_SINGLE_0, false);
 
-    unsigned long t = millis();
-    int measure_count = 0;
-
-    int measure_rate = 0;
+    unsigned long t = micros();
+    unsigned long t_log = micros();
+    unsigned long ta = 0;
 
     std::array<float, size> weight;
 
     auto cb = [&](AdcMuxReading<size> reading) {
         config.convertToWeight(reading.getValuesInVolt(), weight);
-        if (measure_count % 10 == 0) {
+        if (micros() - t_log > LOGGING_INTERVAL_MICROS) {
             if (logRaw) {
                 reading.print();
             } else {
-                Serial.println("Weight: " + String(weight[0]) + "g, " +
-                               String(weight[1]) + "g, " + String(weight[2]) +
-                               "g, " + String(weight[3]) +
-                               "g, Rate: " + String(measure_rate) + "Hz");
+                Serial.println(
+                    "Weight: " + String(weight[0]) + "g, " + String(weight[1]) +
+                    "g, " + String(weight[2]) + "g, " + String(weight[3]) +
+                    "g, Rate: " + String(1 / (ta * std::pow(10.0, -6))) + "Hz");
             }
+            t_log = micros();
         }
-
-        measure_count++;
-        if (millis() - t > 1000) {
-            measure_rate = measure_count;
-            t = millis();
-            measure_count = 0;
-        }
+        ta = micros() - t;
+        t = micros();
     };
 
     adc.continuous_reading(0, cb);
@@ -119,7 +118,7 @@ void Manager<T, size>::measureSD() {
 
     auto cb = [&](AdcMuxReading<size> reading) {
         sdLogging.logWeights(reading, config);
-        if (measure_count % 10 == 0) {
+        if (measure_count % 1000 == 0) {
             Serial.println("Rate: " + String(measure_rate) + "Hz");
         }
 

@@ -69,9 +69,7 @@ void CalInterface<T, size>::start(Config<T, size> &config) {
             Serial.println(val);
             Serial.print("Adc: ");
             Serial.println(reading);
-            Serial.print("Inverse Adc: ");
-            Serial.println(1 / reading);
-            dataSet.appendDataPoint({1 / reading, val});
+            dataSet.appendDataPoint({reading, val});
         }
     }
 
