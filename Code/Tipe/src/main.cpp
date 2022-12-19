@@ -1,4 +1,5 @@
 #include "manager.hpp"
+#include "math/fitting/gradient_desc.hpp"
 #include "math/fitting/linear_regression.hpp"
 #include <Arduino.h>
 
