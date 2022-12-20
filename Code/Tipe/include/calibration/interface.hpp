@@ -78,8 +78,8 @@ void CalInterface<T, size>::start(Config<T, size> &config) {
     } else {
         config.setDatasetAt(dataSet, channel - 1);
     }
-
     config.calculateFittingResultAt(channel - 1);
+    config.getFittingResultStatsAt(channel - 1)->print();
     config.printFittingResultAt(channel - 1);
 }
 #endif

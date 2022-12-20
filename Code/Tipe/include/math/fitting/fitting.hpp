@@ -15,12 +15,20 @@ class FittingResult {
 };
 
 template <typename T>
+class FittingResultStats {
+  public:
+    virtual void print() = 0;
+};
+
+template <typename T>
 class FittingResultFactory {
   public:
     virtual std::unique_ptr<FittingResult<T>> deserialize(std::string str) = 0;
     virtual std::unique_ptr<FittingResult<T>> getDefault() = 0;
     virtual std::unique_ptr<FittingResult<T>>
     calculateFitting(DataSet<T> &data) = 0;
+    virtual std::unique_ptr<FittingResultStats<T>>
+    getLastCalculationStats() = 0;
 };
 
 #endif

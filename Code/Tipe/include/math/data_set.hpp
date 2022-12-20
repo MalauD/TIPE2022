@@ -22,8 +22,9 @@ class DataSet {
     void extend(DataSet<T> dataSet);
     void clear();
     DataPoint<T> at(std::size_t index);
-    T accumulate(T (*func)(DataPoint<T>));
-    DataSet<T> map(DataPoint<T> (*func)(DataPoint<T>));
+    T accumulate(std::function<T(DataPoint<T> &)> func);
+    DataSet<T> map(std::function<DataPoint<T>(DataPoint<T> &)> func);
+    T std();
 };
 
 template <typename T>
@@ -32,7 +33,7 @@ std::size_t DataSet<T>::size() {
 }
 
 template <typename T>
-T DataSet<T>::accumulate(T (*func)(DataPoint<T>)) {
+T DataSet<T>::accumulate(std::function<T(DataPoint<T> &)> func) {
     T result = 0;
     for (auto dataPoint : data) {
         result += func(dataPoint);
@@ -41,12 +42,22 @@ T DataSet<T>::accumulate(T (*func)(DataPoint<T>)) {
 }
 
 template <typename T>
-DataSet<T> DataSet<T>::map(DataPoint<T> (*func)(DataPoint<T>)) {
+DataSet<T> DataSet<T>::map(std::function<DataPoint<T>(DataPoint<T> &)> func) {
     DataSet<T> result;
     for (auto dataPoint : data) {
         result.appendDataPoint(func(dataPoint));
     }
     return result;
+}
+
+template <typename T>
+T DataSet<T>::std() {
+    T mean =
+        accumulate([](DataPoint<T> dataPoint) { return dataPoint.y; }) / size();
+    T sum = accumulate([&mean](DataPoint<T> dataPoint) {
+        return std::pow(dataPoint.y - mean, 2);
+    });
+    return std::sqrt(sum / size());
 }
 
 template <typename T>

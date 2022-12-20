@@ -26,6 +26,8 @@ class Config {
 
     std::unique_ptr<FittingResult<T>> getFittingResultAt(std::size_t index);
     void calculateFittingResultAt(std::size_t index);
+    std::unique_ptr<FittingResultStats<T>>
+    getFittingResultStatsAt(std::size_t index);
     void printFittingResultAt(std::size_t index);
     void extendDatasetAt(DataSet<T> dataset, std::size_t index);
     void setDatasetAt(DataSet<T> dataset, std::size_t index);
@@ -114,8 +116,14 @@ void Config<T, size>::setToDefault() {
 
 template <typename T, std::size_t size>
 void Config<T, size>::calculateFittingResultAt(std::size_t index) {
-    this->fittingResult[index].reset(
-        fittingResultFactory->calculateFitting(this->dataSet[index]).release());
+    fittingResult[index].reset(
+        fittingResultFactory->calculateFitting(dataSet[index]).release());
+}
+
+template <typename T, std::size_t size>
+std::unique_ptr<FittingResultStats<T>>
+Config<T, size>::getFittingResultStatsAt(std::size_t index) {
+    return this->fittingResultFactory->getLastCalculationStats();
 }
 
 template <typename T, std::size_t size>
