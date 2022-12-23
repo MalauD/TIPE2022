@@ -6,9 +6,9 @@
 void setup() {
     Serial.begin(115200);
     auto func = [](float x, std::array<float, 3> coef) {
-        return coef[0] / std::pow(x, std::abs(coef[1])) + coef[2];
+        return coef[0] / std::pow(x, 2) + coef[1] / x + coef[2];
     };
-    GradientDescSettings<float> settings(0.1, 0.001, 10000);
+    GradientDescSettings<float> settings(0.1, 1e-5, 10000);
 
     auto factory_grad =
         std::make_unique<GradientDescFactory<float, 3>>(func, settings);
