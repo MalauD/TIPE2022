@@ -48,25 +48,28 @@ class GradientDescStats : public FittingResultStats<T> {
     void print();
 };
 
-template <typename T>
+template <typename T, std::size_t params_count>
 class GradientDescSettings {
     T learning_rate;
     T tolerance;
     long max_iterations;
+    std::array<T, params_count> initial_params;
 
   public:
-    GradientDescSettings(T _learning_rate, T _tolerance, long _max_iterations)
+    GradientDescSettings(T _learning_rate, T _tolerance, long _max_iterations,
+                         std::array<T, params_count> _initial_params)
         : learning_rate(_learning_rate), tolerance(_tolerance),
-          max_iterations(_max_iterations) {}
+          max_iterations(_max_iterations), initial_params(_initial_params) {}
     T getLearningRate() { return learning_rate; }
     T getTolerance() { return tolerance; }
     long getMaxIterations() { return max_iterations; }
+    std::array<T, params_count> getInitialParams() { return initial_params; }
 };
 
 template <typename T, std::size_t params_count>
 class GradientDescFactory : public FittingResultFactory<T> {
     GradientDescFunc<T, params_count> func;
-    GradientDescSettings<T> settings;
+    GradientDescSettings<T, params_count> settings;
     GradientDescStats<T> last_stats;
 
     T cost_func(DataSet<T> &data, std::array<T, params_count> params);
@@ -76,7 +79,7 @@ class GradientDescFactory : public FittingResultFactory<T> {
   public:
     GradientDescFactory() = default;
     GradientDescFactory(GradientDescFunc<T, params_count> _func,
-                        GradientDescSettings<T> _settings)
+                        GradientDescSettings<T, params_count> _settings)
         : func(_func), settings(_settings){};
     std::unique_ptr<FittingResult<T>> deserialize(std::string str);
     std::unique_ptr<FittingResult<T>> getDefault();
@@ -110,7 +113,7 @@ template <typename T, std::size_t params_count>
 void GradientDesc<T, params_count>::print() {
     Serial.println("GradientDesc: ");
     for (auto param : params) {
-        Serial.println(String(param) + " ");
+        Serial.println(String(param));
     }
     Serial.println();
 }
@@ -157,7 +160,7 @@ GradientDescFactory<T, params_count>::grad_cost_func(
     std::array<T, params_count> grad;
     std::array<T, params_count> deriv_eps;
     std::fill(deriv_eps.begin(), deriv_eps.end(), T());
-    T h = std::sqrt(std::numeric_limits<T>::epsilon());
+    T h = std::pow(std::numeric_limits<T>::epsilon(), T(1.0 / 3.0));
     for (std::size_t i = 0; i < params_count; i++) {
         deriv_eps[i] = h;
         grad[i] = (cost_func(data, add_arr(params, deriv_eps)) -
@@ -173,14 +176,14 @@ template <typename T, std::size_t params_count>
 std::unique_ptr<FittingResult<T>>
 GradientDescFactory<T, params_count>::calculateFitting(DataSet<T> &data) {
     std::array<T, params_count> params;
-    std::fill(params.begin(), params.end(), T(1.5));
+    auto initial_params = settings.getInitialParams();
+    std::copy(initial_params.begin(), initial_params.end(), params.begin());
 
     T learning_rate = settings.getLearningRate();
 
     long iterations = 0;
     GradientDescCompletion completion = GRADIENT_DESC_CONVERGED;
     while (true) {
-        iterations++;
         auto grad = grad_cost_func(data, params);
         for (std::size_t i = 0; i < params_count; i++) {
             params[i] -= learning_rate * grad[i];
@@ -190,7 +193,6 @@ GradientDescFactory<T, params_count>::calculateFitting(DataSet<T> &data) {
         for (std::size_t i = 0; i < params_count; i++) {
             norm_grad += std::pow(grad[i], 2);
         }
-        norm_grad = std::sqrt(norm_grad);
 
         if (norm_grad < settings.getTolerance()) {
             break;
@@ -199,6 +201,8 @@ GradientDescFactory<T, params_count>::calculateFitting(DataSet<T> &data) {
             completion = GRADIENT_DESC_MAX_ITERATIONS;
             break;
         }
+
+        iterations++;
     }
     T cost = cost_func(data, params);
 

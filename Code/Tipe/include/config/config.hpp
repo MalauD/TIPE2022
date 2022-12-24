@@ -93,7 +93,7 @@ void Config<T, size>::deserialize(std::istream &is) {
             std::getline(is, line);
             auto values = split(line, ',');
             auto point =
-                DataPoint<float>{std::stof(values[0]), std::stof(values[1])};
+                DataPoint<T>{std::stof(values[0]), std::stof(values[1])};
             dataSet[i].appendDataPoint(point);
         }
     }

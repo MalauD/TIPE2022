@@ -5,16 +5,17 @@
 
 void setup() {
     Serial.begin(115200);
-    auto func = [](float x, std::array<float, 3> coef) {
-        return coef[0] / std::pow(x, 2) + coef[1] / x + coef[2];
+    auto func = [](double x, std::array<double, 3> coef) {
+        return coef[0] / std::pow(x, coef[1]) + coef[2];
     };
-    GradientDescSettings<float> settings(0.1, 1e-5, 10000);
+    GradientDescSettings<double, 3> settings(0.01, 1e-3, 5000,
+                                             {6000, 0.7, -2800});
 
     auto factory_grad =
-        std::make_unique<GradientDescFactory<float, 3>>(func, settings);
+        std::make_unique<GradientDescFactory<double, 3>>(func, settings);
 
-    auto factory = std::make_unique<LinearRegressionFactory<float>>();
-    Manager<float, 4> manager{std::move(factory_grad)};
+    auto factory = std::make_unique<LinearRegressionFactory<double>>();
+    Manager<double, 4> manager{std::move(factory_grad)};
     manager.run();
 }
 

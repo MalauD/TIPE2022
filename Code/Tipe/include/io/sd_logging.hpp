@@ -29,7 +29,8 @@ template <typename T, std::size_t size>
 void SDLogging::logWeights(AdcMuxReading<size> reading,
                            Config<T, size> &config) {
     std::array<T, size> weight;
-    config.convertToWeight(reading.getValuesInVolt(), weight);
+    std::array<T, size> volt = reading.template getValuesInVolt<T>();
+    config.convertToWeight(volt, weight);
     std::ostringstream ss;
     ss << getLogIntervalMicros() << ",";
     for (std::size_t i = 0; i < size; i++) {

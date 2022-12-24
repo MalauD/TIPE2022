@@ -22,7 +22,7 @@ enum ManagerMenus {
 
 constexpr float LOGGING_RATE_TARGET_HZ = 90;
 constexpr float LOGGING_INTERVAL_MICROS =
-    1.0 / LOGGING_RATE_TARGET_HZ * std::pow(10.0, 6);
+    1.0f / LOGGING_RATE_TARGET_HZ * std::pow(10.0, 6);
 
 template <typename T, std::size_t size>
 class Manager {
@@ -81,10 +81,10 @@ void Manager<T, size>::measureSerial(bool logRaw) {
     unsigned long t_log = micros();
     unsigned long ta = 0;
 
-    std::array<float, size> weight;
+    std::array<T, size> weight;
 
     auto cb = [&](AdcMuxReading<size> reading) {
-        config.convertToWeight(reading.getValuesInVolt(), weight);
+        config.convertToWeight(reading.template getValuesInVolt<T>(), weight);
         if (micros() - t_log > LOGGING_INTERVAL_MICROS) {
             if (logRaw) {
                 reading.print();

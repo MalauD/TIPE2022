@@ -14,7 +14,8 @@ class AdcMuxReading {
   public:
     AdcMuxReading(std::array<int64_t, size> values, adsGain_t gain);
     void print();
-    std::array<float, size> getValuesInVolt();
+    template <typename T>
+    std::array<T, size> getValuesInVolt();
     int16_t getAdcValueByAddr(AdcAddr addr);
     int16_t getAdcValueByIndex(std::size_t index);
     float getAdcValueByIndexInVolts(std::size_t addr);
@@ -83,10 +84,11 @@ void AdcMuxReading<size>::print() {
 }
 
 template <std::size_t size>
-std::array<float, size> AdcMuxReading<size>::getValuesInVolt() {
-    std::array<float, size> f_array;
+template <typename T>
+std::array<T, size> AdcMuxReading<size>::getValuesInVolt() {
+    std::array<T, size> f_array;
     for (std::size_t i = 0; i < size; i++) {
-        f_array[i] = getAdcValueByIndexInVolts(i);
+        f_array[i] = static_cast<T>(getAdcValueByIndexInVolts(i));
     }
     return f_array;
 }

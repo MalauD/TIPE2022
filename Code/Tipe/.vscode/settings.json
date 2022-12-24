@@ -50,7 +50,8 @@
     "typeinfo": "cpp",
     "istream": "cpp",
     "sstream": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "cfenv": "cpp"
   },
   "python.formatting.provider": "yapf"
 }
