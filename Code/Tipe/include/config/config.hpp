@@ -5,6 +5,7 @@
 #include "../math/fitting/fitting.hpp"
 #include "LittleFS.h"
 #include <array>
+#include <iomanip>
 #include <ostream>
 #include <sstream>
 #include <string>
@@ -45,6 +46,7 @@ Config<T, size>::Config(
 
 template <typename T, std::size_t size>
 void Config<T, size>::serialize(std::ostream &os) {
+    os << std::setprecision(std::numeric_limits<T>::digits10 / 2);
     os << std::to_string(size) << '\n';
     for (size_t i = 0; i < size; i++) {
         fittingResult[i]->serialize(os);

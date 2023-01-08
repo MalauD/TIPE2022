@@ -9,14 +9,18 @@ template <typename T, std::size_t params_count>
 using GradientDescFunc = std::function<T(T, std::array<T, params_count>)>;
 
 template <typename T, std::size_t params_count>
-class GradientDesc : public FittingResult<T> {
+class GradientDescResult : public FittingResult<T> {
     std::array<T, params_count> params;
     GradientDescFunc<T, params_count> func;
+    T dataset_mean;
+    T dataset_std;
 
   public:
-    GradientDesc(GradientDescFunc<T, params_count> _func,
-                 std::array<T, params_count> _params)
-        : params(_params), func(_func) {}
+    GradientDescResult(GradientDescFunc<T, params_count> _func,
+                       std::array<T, params_count> _params, T _dataset_mean,
+                       T _dataset_std)
+        : params(_params), func(_func), dataset_mean(_dataset_mean),
+          dataset_std(_dataset_std) {}
     void print();
     T calculateOutput(T input);
     void serialize(std::ostream &os);
@@ -103,34 +107,34 @@ void GradientDescStats<T>::print() {
     Serial.println("GradientDescStats: ");
     Serial.println("Completion: " +
                    String(gradientDescCompletionToString(completion).c_str()));
-    Serial.println("SSE: " + String(sse));
-    Serial.println("R^2: " + String(r2));
-    Serial.println("RMSE: " + String(rmse));
+    Serial.println("SSE: " + String(sse, 8));
+    Serial.println("R^2: " + String(r2, 8));
+    Serial.println("RMSE: " + String(rmse, 8));
     Serial.println("Iterations: " + String(iterations));
 }
 
 template <typename T, std::size_t params_count>
-void GradientDesc<T, params_count>::print() {
+void GradientDescResult<T, params_count>::print() {
     Serial.println("GradientDesc: ");
     for (auto param : params) {
-        Serial.println(String(param));
+        Serial.println(String(param, 8));
     }
+    Serial.println("Dataset Mean: " + String(dataset_mean, 8));
+    Serial.println("Dataset Std: " + String(dataset_std, 8));
     Serial.println();
 }
 
 template <typename T, std::size_t params_count>
-T GradientDesc<T, params_count>::calculateOutput(T input) {
-    return func(input, params);
+T GradientDescResult<T, params_count>::calculateOutput(T input) {
+    return func(input, params) * dataset_std + dataset_mean;
 }
 
 template <typename T, std::size_t params_count>
-void GradientDesc<T, params_count>::serialize(std::ostream &os) {
+void GradientDescResult<T, params_count>::serialize(std::ostream &os) {
     for (std::size_t i = 0; i < params_count; i++) {
-        os << params[i];
-        if (i != params_count - 1) {
-            os << ",";
-        }
+        os << params[i] << ",";
     }
+    os << dataset_mean << "," << dataset_std;
 }
 
 template <typename T, std::size_t params_count>
@@ -174,13 +178,14 @@ GradientDescFactory<T, params_count>::grad_cost_func(
 
 template <typename T, std::size_t params_count>
 std::unique_ptr<FittingResult<T>>
-GradientDescFactory<T, params_count>::calculateFitting(DataSet<T> &data) {
+GradientDescFactory<T, params_count>::calculateFitting(
+    DataSet<T> &data_nonnorm) {
     std::array<T, params_count> params;
+    auto data = data_nonnorm.normalize();
     auto initial_params = settings.getInitialParams();
     std::copy(initial_params.begin(), initial_params.end(), params.begin());
 
     T learning_rate = settings.getLearningRate();
-
     long iterations = 0;
     GradientDescCompletion completion = GRADIENT_DESC_CONVERGED;
     while (true) {
@@ -201,7 +206,10 @@ GradientDescFactory<T, params_count>::calculateFitting(DataSet<T> &data) {
             completion = GRADIENT_DESC_MAX_ITERATIONS;
             break;
         }
-
+        if (iterations % 100 == 0) {
+            Serial.println("Iteration: " + String(iterations) +
+                           " Norm: " + String(norm_grad, 8));
+        }
         iterations++;
     }
     T cost = cost_func(data, params);
@@ -212,7 +220,8 @@ GradientDescFactory<T, params_count>::calculateFitting(DataSet<T> &data) {
 
     last_stats = GradientDescStats<T>(completion, sse, r2, rmse, iterations);
 
-    return std::make_unique<GradientDesc<T, params_count>>(func, params);
+    return std::make_unique<GradientDescResult<T, params_count>>(
+        func, params, data_nonnorm.mean(), data_nonnorm.std());
 };
 
 template <typename T, std::size_t params_count>
@@ -223,7 +232,10 @@ GradientDescFactory<T, params_count>::deserialize(std::string str) {
     for (std::size_t i = 0; i < params_count; i++) {
         params[i] = std::stod(values[i]);
     }
-    return std::make_unique<GradientDesc<T, params_count>>(func, params);
+    T mean = std::stod(values[params_count]);
+    T std = std::stod(values[params_count + 1]);
+    return std::make_unique<GradientDescResult<T, params_count>>(func, params,
+                                                                 mean, std);
 };
 
 template <typename T, std::size_t params_count>
@@ -231,7 +243,8 @@ std::unique_ptr<FittingResult<T>>
 GradientDescFactory<T, params_count>::getDefault() {
     std::array<T, params_count> params;
     std::fill(params.begin(), params.end(), T());
-    return std::make_unique<GradientDesc<T, params_count>>(func, params);
+    return std::make_unique<GradientDescResult<T, params_count>>(func, params,
+                                                                 0, 1);
 }
 
 template <typename T, std::size_t params_count>

@@ -24,7 +24,10 @@ class DataSet {
     DataPoint<T> at(std::size_t index);
     T accumulate(std::function<T(DataPoint<T> &)> func);
     DataSet<T> map(std::function<DataPoint<T>(DataPoint<T> &)> func);
+    DataSet<T> normalize();
     T std();
+    T mean();
+    void print();
 };
 
 template <typename T>
@@ -51,13 +54,39 @@ DataSet<T> DataSet<T>::map(std::function<DataPoint<T>(DataPoint<T> &)> func) {
 }
 
 template <typename T>
+DataSet<T> DataSet<T>::normalize() {
+    DataSet<T> result;
+    T mean = this->mean();
+    T std = this->std();
+    for (auto dataPoint : data) {
+        result.appendDataPoint(
+            DataPoint<T>(dataPoint.x, (dataPoint.y - mean) / std));
+    }
+    return result;
+}
+
+template <typename T>
 T DataSet<T>::std() {
-    T mean =
-        accumulate([](DataPoint<T> dataPoint) { return dataPoint.y; }) / size();
+    T mean = this->mean();
     T sum = accumulate([&mean](DataPoint<T> dataPoint) {
         return std::pow(dataPoint.y - mean, 2);
     });
     return std::sqrt(sum / size());
+}
+
+template <typename T>
+T DataSet<T>::mean() {
+    return accumulate([](DataPoint<T> dataPoint) { return dataPoint.y; }) /
+           size();
+}
+
+template <typename T>
+void DataSet<T>::print() {
+    for (auto dataPoint : data) {
+        Serial.print(dataPoint.x);
+        Serial.print(" ");
+        Serial.println(dataPoint.y);
+    }
 }
 
 template <typename T>
