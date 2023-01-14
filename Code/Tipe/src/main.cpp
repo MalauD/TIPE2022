@@ -2,11 +2,15 @@
 #include "math/fitting/gradient_desc.hpp"
 #include "math/fitting/linear_regression.hpp"
 #include <Arduino.h>
+#include <ESP8266WiFi.h>
 
 void setup() {
+    WiFi.mode(WIFI_OFF);
+    WiFi.forceSleepBegin();
+
     Serial.begin(115200);
-    ESP.wdtDisable();
-    *((volatile uint32_t *)0x60000900) &= ~(1);
+    // ESP.wdtDisable();
+    //  *((volatile uint32_t *)0x60000900) &= ~(1);
     auto func = [](double x, std::array<double, 3> coef) {
         return coef[0] / std::pow(x, coef[1]) + coef[2];
     };

@@ -51,7 +51,9 @@
     "istream": "cpp",
     "sstream": "cpp",
     "iostream": "cpp",
-    "cfenv": "cpp"
+    "cfenv": "cpp",
+    "ctime": "cpp",
+    "iomanip": "cpp"
   },
   "python.formatting.provider": "yapf"
 }

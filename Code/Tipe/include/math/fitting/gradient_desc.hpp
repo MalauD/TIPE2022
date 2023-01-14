@@ -207,6 +207,7 @@ GradientDescFactory<T, params_count>::calculateFitting(
             break;
         }
         if (iterations % 100 == 0) {
+            ESP.wdtFeed();
             Serial.println("Iteration: " + String(iterations) +
                            " Norm: " + String(norm_grad, 8));
         }
