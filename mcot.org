@@ -1,0 +1,27 @@
+#+TITLE: Titre & Mise en cohérence des objectifs du TIPE
+#+AUTHOR: Malaury
+#+OPTIONS: \n:t
+
+* Titre, ancrage et motivation
+** Titre
+L'impact physique de la course à pied
+** Ancrage
+Le bitume est inévitable pour les coureurs en agglomération. Pourtant ce revêtement ne semble pas idéal pour cette pratique, c'est pour cela que les praticiens tentent au maximum de l'éviter mais est-ce vraiment nécessaire ?
+** Motivation
+Etant moi même coureur amateur et habitant en agglomération, je suis directment concerné par le problème. J'ai donc été séduit par le sujet d'autant plus que j'ai été confronté à des problèmes orthopédiques.
+* Mcot
+** Positionnement thématique
++ Physique (mécanique)
++ Informatique (pratique)
+** Mots clefs
++ Course à pied
++ Relevés orthopédique
++ Ajustement de courbe
++ Jauge de contrainte
+** Bibliographie commentée
+
+** Problématique retenue
+
+** Objectifs du TIPE
+
+** Liste des références bibliographiques 
