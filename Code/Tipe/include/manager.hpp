@@ -4,6 +4,7 @@
 #include "./calibration/interface.hpp"
 #include "./config/config.hpp"
 #include "./config/config_manager.hpp"
+#include "./io/mpu.hpp"
 #include "./io/sd_logging.hpp"
 #include "Arduino.h"
 #include <FunctionalInterrupt.h>
@@ -111,13 +112,19 @@ void Manager<T, size>::measureSD() {
     adc.set_gain(GAIN_ONE);
     adc.set_rate(RATE_ADS1115_860SPS);
 
+    // Mpu mpu;
+    // mpu.begin();
+
     unsigned long t = millis();
     int measure_count = 0;
 
     int measure_rate = 0;
+    MpuReading mpuReading;
 
     auto cb = [&](AdcMuxReading<size> reading) {
+        // mpu.read(mpuReading);
         sdLogging.logWeights(reading, config);
+        // sdLogging.logMpuReading(mpuReading);
         if (measure_count % 1000 == 0) {
             Serial.println("Rate: " + String(measure_rate) + "Hz");
         }

@@ -1,1 +1,5 @@
 .DS_Store
+Code/FileDecoder/**.out
+Code/FileDecoder/**.TXT
+Code/FileDecoder/**.csv
+Code/FileDecoder/.vscode
