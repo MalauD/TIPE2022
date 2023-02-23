@@ -2,12 +2,6 @@
 #include <stdlib.h>
 #include "stdint.h"
 
-/// This program will read a file that consist of raw bianry data. The data is a uint16_t for the delta time and 4 int16_t for the 4 channels of the ADC.
-/// The program will create a new file with the same name as the input file but with the extension .csv. The new file will contain the data in a csv format.
-/// The first line of the csv file will contain the header "Time,Channel 1,Channel 2,Channel 3,Channel 4"
-/// The input file is the first argument and the output file is called out.csv
-/// The second argument is the offset of the first sample in the file. This is used to skip the first samples in the file.
-/// The real data is after ########## in the file.
 int main(int argc, char *argv[]) {
     FILE *in, *out;
     uint16_t time;
