@@ -106,6 +106,7 @@ void Manager<T, size>::measureSerial(bool logRaw) {
 
 template <typename T, std::size_t size>
 void Manager<T, size>::measureSD() {
+    sdLogging.begin();
     Serial.println("Starting measurement...");
     AdcMux<size> adc;
     adc.begin();
@@ -143,7 +144,6 @@ void Manager<T, size>::measureSD() {
 template <typename T, std::size_t size>
 void Manager<T, size>::run() {
     configManager.begin();
-    sdLogging.begin();
     configManager.retreiveConfig(config);
     Wire.setClock(400000);
     while (true) {

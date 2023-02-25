@@ -65,7 +65,8 @@
 			"iostream": "cpp",
 			"cfenv": "cpp",
 			"ctime": "cpp",
-			"iomanip": "cpp"
+			"iomanip": "cpp",
+			"span": "cpp"
 		}
 	}
 }
