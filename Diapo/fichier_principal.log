@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Homebrew) (preloaded format=pdflatex 2022.9.2)  15 MAY 2023 15:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Homebrew) (preloaded format=pdflatex 2022.9.2)  15 MAY 2023 21:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1517,6 +1517,66 @@ pdftex.map}] [2
 
 ]) (./slides/01_intro.tex [4
 
+]) (./slides/02_releves.tex [5
+
+]
+<./figures/cal_00.png, id=176, 789.1884pt x 672.8337pt>
+File: ./figures/cal_00.png Graphic file (type png)
+<use ./figures/cal_00.png>
+Package pdftex.def Info: ./figures/cal_00.png  used on input line 16.
+(pdftex.def)             Requested size: 236.75835pt x 201.85165pt.
+ [6
+
+ <./figures/cal_00.png>]
+<./figures/carte_00.jpg, id=205, 3428.81pt x 2537.48pt>
+File: ./figures/carte_00.jpg Graphic file (type jpg)
+<use ./figures/carte_00.jpg>
+Package pdftex.def Info: ./figures/carte_00.jpg  used on input line 23.
+(pdftex.def)             Requested size: 342.2953pt x 253.29823pt.
+
+Overfull \vbox (45.3163pt too high) detected at line 23
+ []
+
+[7
+
+ <./figures/carte_00.jpg>] [8
+
+]
+<./figures/cal_01.png, id=260, 795.6927pt x 672.111pt>
+File: ./figures/cal_01.png Graphic file (type png)
+<use ./figures/cal_01.png>
+Package pdftex.def Info: ./figures/cal_01.png  used on input line 34.
+(pdftex.def)             Requested size: 238.70966pt x 201.63484pt.
+ [9
+
+ <./figures/cal_01.png>]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 4
+0.
+
+(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+<./figures/cal_02.png, id=288, 829.6596pt x 672.111pt>
+File: ./figures/cal_02.png Graphic file (type png)
+<use ./figures/cal_02.png>
+Package pdftex.def Info: ./figures/cal_02.png  used on input line 40.
+(pdftex.def)             Requested size: 248.8998pt x 201.63484pt.
+ [10
+
+ <./figures/cal_02.png>]
+<./figures/sem_00.jpg, id=317, 3661.68pt x 2746.26pt>
+File: ./figures/sem_00.jpg Graphic file (type jpg)
+<use ./figures/sem_00.jpg>
+Package pdftex.def Info: ./figures/sem_00.jpg  used on input line 48.
+(pdftex.def)             Requested size: 342.2953pt x 256.70695pt.
+
+Overfull \vbox (35.12502pt too high) detected at line 48
+ []
+
+[11
+
+ <./figures/sem_00.jpg>] [12
+
 ])
 \tf@nav=\write8
 \openout8 = `fichier_principal.nav'.
@@ -1532,11 +1592,11 @@ Package rerunfilecheck Info: File `fichier_principal.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 31690 strings out of 478268
- 648120 string characters out of 5836864
- 952488 words of memory out of 5000000
- 49234 multiletter control sequences out of 15000+600000
- 475049 words of font info for 37 fonts, out of 8000000 for 9000
+ 31835 strings out of 478268
+ 651240 string characters out of 5836864
+ 952490 words of memory out of 5000000
+ 49348 multiletter control sequences out of 15000+600000
+ 475363 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,457b,601s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts/enc/dvips/cm-sup
@@ -1547,11 +1607,12 @@ er/cm-super-t1.enc}</usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts
 al/Cellar/texlive/20220321_3/share/texmf-dist/fonts/type1/public/cm-super/sfrm0
 800.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts/type1/publ
 ic/cm-super/sfrm1095.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-dist
-/fonts/type1/public/cm-super/sfrm1440.pfb>
-Output written on fichier_principal.pdf (4 pages, 105834 bytes).
+/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/Cellar/texlive/20220321_3
+/share/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on fichier_principal.pdf (12 pages, 5347961 bytes).
 PDF statistics:
- 177 PDF objects out of 1000 (max. 8388607)
- 140 compressed objects within 2 object streams
- 9 named destinations out of 1000 (max. 500000)
- 103 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 408 PDF objects out of 1000 (max. 8388607)
+ 350 compressed objects within 4 object streams
+ 25 named destinations out of 1000 (max. 500000)
+ 134 words of extra memory for PDF output out of 10000 (max. 10000000)
 
