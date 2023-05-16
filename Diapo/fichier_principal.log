@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Homebrew) (preloaded format=pdflatex 2022.9.2)  15 MAY 2023 21:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Homebrew) (preloaded format=pdflatex 2022.9.2)  16 MAY 2023 14:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1539,43 +1539,66 @@ Overfull \vbox (45.3163pt too high) detected at line 23
 
 [7
 
- <./figures/carte_00.jpg>] [8
+ <./figures/carte_00.jpg>]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 30.
+
+
+(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/amsfonts/umsa.
+fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 30.
+
+
+(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/amsfonts/umsb.
+fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 30
+.
+
+(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/jknapltx/ursfs
+.fd
+File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
+) [8
+
+] [9
 
 ]
-<./figures/cal_01.png, id=260, 795.6927pt x 672.111pt>
+<./figures/cal_01.png, id=294, 795.6927pt x 672.111pt>
 File: ./figures/cal_01.png Graphic file (type png)
 <use ./figures/cal_01.png>
-Package pdftex.def Info: ./figures/cal_01.png  used on input line 34.
+Package pdftex.def Info: ./figures/cal_01.png  used on input line 47.
 (pdftex.def)             Requested size: 238.70966pt x 201.63484pt.
- [9
+ [10
 
  <./figures/cal_01.png>]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 4
-0.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 5
+3.
 
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-<./figures/cal_02.png, id=288, 829.6596pt x 672.111pt>
+<./figures/cal_02.png, id=322, 829.6596pt x 672.111pt>
 File: ./figures/cal_02.png Graphic file (type png)
 <use ./figures/cal_02.png>
-Package pdftex.def Info: ./figures/cal_02.png  used on input line 40.
+Package pdftex.def Info: ./figures/cal_02.png  used on input line 53.
 (pdftex.def)             Requested size: 248.8998pt x 201.63484pt.
- [10
+ [11
 
  <./figures/cal_02.png>]
-<./figures/sem_00.jpg, id=317, 3661.68pt x 2746.26pt>
+<./figures/sem_00.jpg, id=351, 3661.68pt x 2746.26pt>
 File: ./figures/sem_00.jpg Graphic file (type jpg)
 <use ./figures/sem_00.jpg>
-Package pdftex.def Info: ./figures/sem_00.jpg  used on input line 48.
+Package pdftex.def Info: ./figures/sem_00.jpg  used on input line 61.
 (pdftex.def)             Requested size: 342.2953pt x 256.70695pt.
 
-Overfull \vbox (35.12502pt too high) detected at line 48
+Overfull \vbox (35.12502pt too high) detected at line 61
  []
 
-[11
+[12
 
- <./figures/sem_00.jpg>] [12
+ <./figures/sem_00.jpg>] [13
 
 ])
 \tf@nav=\write8
@@ -1592,27 +1615,37 @@ Package rerunfilecheck Info: File `fichier_principal.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 31835 strings out of 478268
- 651240 string characters out of 5836864
- 952490 words of memory out of 5000000
- 49348 multiletter control sequences out of 15000+600000
- 475363 words of font info for 38 fonts, out of 8000000 for 9000
+ 31906 strings out of 478268
+ 652620 string characters out of 5836864
+ 953490 words of memory out of 5000000
+ 49394 multiletter control sequences out of 15000+600000
+ 480205 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,15n,122p,457b,601s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,15n,122p,478b,601s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts/enc/dvips/cm-sup
 er/cm-super-t1.enc}</usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts
-/type1/public/cm-super/sfcc0600.pfb></usr/local/Cellar/texlive/20220321_3/share
-/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/Cellar/texlive
-/20220321_3/share/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/loc
-al/Cellar/texlive/20220321_3/share/texmf-dist/fonts/type1/public/cm-super/sfrm0
-800.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts/type1/publ
-ic/cm-super/sfrm1095.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-dist
-/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/Cellar/texlive/20220321_3
-/share/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on fichier_principal.pdf (12 pages, 5347961 bytes).
+/type1/public/amsfonts/cm/cmex10.pfb></usr/local/Cellar/texlive/20220321_3/shar
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/Cellar/texli
+ve/20220321_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/l
+ocal/Cellar/texlive/20220321_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi8.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr10.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/Cellar/texlive/20220321_
+3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/Cellar
+/texlive/20220321_3/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10
+.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts/type1/public/
+cm-super/sfcc0600.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fo
+nts/type1/public/cm-super/sfcc1095.pfb></usr/local/Cellar/texlive/20220321_3/sh
+are/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/Cellar/texl
+ive/20220321_3/share/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/
+local/Cellar/texlive/20220321_3/share/texmf-dist/fonts/type1/public/cm-super/sf
+rm1095.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts/type1/p
+ublic/cm-super/sfrm1440.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-d
+ist/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on fichier_principal.pdf (13 pages, 5417803 bytes).
 PDF statistics:
- 408 PDF objects out of 1000 (max. 8388607)
- 350 compressed objects within 4 object streams
- 25 named destinations out of 1000 (max. 500000)
+ 475 PDF objects out of 1000 (max. 8388607)
+ 400 compressed objects within 4 object streams
+ 27 named destinations out of 1000 (max. 500000)
  134 words of extra memory for PDF output out of 10000 (max. 10000000)
 

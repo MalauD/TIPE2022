@@ -23,8 +23,21 @@ Voici la carte avec le microcontroleur, les convertisseurs analogiques-numériqu
 \end{frame}
 
 \begin{frame}
-\frametitle{Calibration - ajustement de courbe}
+\frametitle{Calibration - ajustement de courbe 1/2}
+On envisage la fonction suivante: $f_{a,b,c}(x) = \frac{a}{x^b}+c$\\
+Notons $x_i$ les valeurs en tension correspondant à un poids mesuré $y_i$.\\
+Il faut trouver a,b,c minimisant $ \sum_{i=0}^{n} (f_{a,b,c}(x_i)-y_i)^2$
+\end{frame}
 
+\begin{frame}
+\frametitle{Calibration - ajustement de courbe 2/2}
+On utilise la méthode de la descente de gradient pour trouver une valeur approchée de a,b,c minimisant $C(a,b,c)=\sum_{i=0}^{n} (f_{a,b,c}(x_i)-y_i)^2$.
+L'ideal étant d'avoir $\frac{\partial C}{\partial a} (a,b,c) = 0$ $\frac{\partial C}{\partial b} (a,b,c) = 0$ $\frac{\partial C}{\partial c} (a,b,c) = 0$, soit autrement dit $\nabla C = 0$. Pour cela on fixe $\alpha \in \mathbb{R}^+$ appelé taux d'apprentissage et un seuil $\varepsilon \in \mathbb{R}^+$. On construit la suite $P_k=\begin{pmatrix} a_k \\ b_k \\ c_k \end{pmatrix}$ de la facon suivante:
+\begin{itemize}
+\item $P_0$ fixé de manière arbitraire
+\item $P_{k+1}= P_{k} - \alpha \times \nabla C$
+\end{itemize}
+Condition d'arrêt: $\nabla C < \varepsilon$
 \end{frame}
 
 \begin{frame}
