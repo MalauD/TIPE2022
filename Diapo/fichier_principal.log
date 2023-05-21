@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Homebrew) (preloaded format=pdflatex 2022.9.2)  16 MAY 2023 14:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Homebrew) (preloaded format=pdflatex 2022.9.2)  17 MAY 2023 11:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -809,42 +809,19 @@ nnerthemedefault.sty
 \beamer@dimb=\dimen291
 )
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamero
-uterthemedefault.sty)))
+uterthemedefault.sty))) (./preambule/special_beamer.tex
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamert
-hemeMadrid.sty
-(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamerc
-olorthemewhale.sty)
-(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamerc
-olorthemeorchid.sty)
+hemeWarsaw.sty
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beameri
 nnerthemerounded.sty)
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamero
-uterthemeinfolines.sty)) (./preambule/special_beamer.tex
-(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamert
-hemeWarsaw.sty
-
-! LaTeX Error: Option clash for package beamerinnerthemerounded.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.12 \useinnertheme[shadow=true]{rounded}
-                                         
-The package beamerinnerthemerounded has already been loaded with options:
-  [shadow]
-There has now been an attempt to load it with options
-  [shadow=true]
-Adding the global options:
-  shadow,shadow=true
-to your \documentclass declaration may fix this.
-Try typing  <return>  to proceed.
-
-
-(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamero
 uterthemeshadow.sty
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamero
-uterthemesplit.sty)))
+uterthemesplit.sty))
+(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamerc
+olorthemeorchid.sty)
+(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamerc
+olorthemewhale.sty))
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamerf
 ontthemeserif.sty)
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/booktabs/bookt
@@ -1356,6 +1333,29 @@ File: md-frame-1.mdf 2013/07/01\ 1.9b: md-frame-1
 \c@mdf@zref@counter=\count405
 Package zref Info: New property: mdf@pagevalue on input line 895.
 ) (./preambule/macros.tex)
+(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamert
+hemeMadrid.sty
+
+! LaTeX Error: Option clash for package beamerinnerthemerounded.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.20 \useinnertheme[shadow]{rounded}
+                                    
+The package beamerinnerthemerounded has already been loaded with options:
+  [shadow=true]
+There has now been an attempt to load it with options
+  [shadow]
+Adding the global options:
+  shadow=true,shadow
+to your \documentclass declaration may fix this.
+Try typing  <return>  to proceed.
+
+
+(/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/beamer/beamero
+uterthemeinfolines.sty))
 runsystem(which pygmentize && touch fichier_principal.aex)...disabled (restrict
 ed).
 
@@ -1403,14 +1403,14 @@ LaTeX Font Info:    ... okay on input line 14.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: includehead includefoot 
-* h-part:(L,W,R)=(10.95003pt, 342.2953pt, 10.95003pt)
+* h-part:(L,W,R)=(10.88788pt, 342.4196pt, 10.88788pt)
 * v-part:(T,H,B)=(0.0pt, 273.14662pt, 0.0pt)
 * \paperwidth=364.19536pt
 * \paperheight=273.14662pt
-* \textwidth=342.2953pt
+* \textwidth=342.4196pt
 * \textheight=244.6939pt
-* \oddsidemargin=-61.31996pt
-* \evensidemargin=-61.31996pt
+* \oddsidemargin=-61.38211pt
+* \evensidemargin=-61.38211pt
 * \topmargin=-72.26999pt
 * \headheight=14.22636pt
 * \headsep=0.0pt
@@ -1520,41 +1520,45 @@ pdftex.map}] [2
 ]) (./slides/02_releves.tex [5
 
 ]
-<./figures/cal_00.png, id=176, 789.1884pt x 672.8337pt>
+<./figures/cal_00.png, id=224, 1096.095pt x 934.49126pt>
 File: ./figures/cal_00.png Graphic file (type png)
 <use ./figures/cal_00.png>
-Package pdftex.def Info: ./figures/cal_00.png  used on input line 16.
-(pdftex.def)             Requested size: 236.75835pt x 201.85165pt.
- [6
+Package pdftex.def Info: ./figures/cal_00.png  used on input line 19.
+(pdftex.def)             Requested size: 328.83104pt x 280.34953pt.
 
- <./figures/cal_00.png>]
-<./figures/carte_00.jpg, id=205, 3428.81pt x 2537.48pt>
+Overfull \vbox (63.79909pt too high) detected at line 19
+ []
+
+[6
+
+ <./figures/cal_00.png (PNG copy)>]
+<./figures/carte_00.jpg, id=250, 3428.81pt x 2537.48pt>
 File: ./figures/carte_00.jpg Graphic file (type jpg)
 <use ./figures/carte_00.jpg>
-Package pdftex.def Info: ./figures/carte_00.jpg  used on input line 23.
-(pdftex.def)             Requested size: 342.2953pt x 253.29823pt.
+Package pdftex.def Info: ./figures/carte_00.jpg  used on input line 26.
+(pdftex.def)             Requested size: 342.4196pt x 253.37567pt.
 
-Overfull \vbox (45.3163pt too high) detected at line 23
+Overfull \vbox (42.42523pt too high) detected at line 26
  []
 
 [7
 
  <./figures/carte_00.jpg>]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 30.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 33.
 
 
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/amsfonts/umsa.
 fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 30.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 33.
 
 
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/amsfonts/umsb.
 fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 30
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 33
 .
 
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/jknapltx/ursfs
@@ -1565,40 +1569,64 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 ] [9
 
 ]
-<./figures/cal_01.png, id=294, 795.6927pt x 672.111pt>
+<./figures/cal_01.png, id=339, 795.6927pt x 672.111pt>
 File: ./figures/cal_01.png Graphic file (type png)
 <use ./figures/cal_01.png>
-Package pdftex.def Info: ./figures/cal_01.png  used on input line 47.
+Package pdftex.def Info: ./figures/cal_01.png  used on input line 52.
 (pdftex.def)             Requested size: 238.70966pt x 201.63484pt.
  [10
 
- <./figures/cal_01.png>]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 5
-3.
+ <./figures/cal_01.png (PNG copy)>]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 6
+0.
 
 (/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-<./figures/cal_02.png, id=322, 829.6596pt x 672.111pt>
+<./figures/cal_02.png, id=365, 829.6596pt x 672.111pt>
 File: ./figures/cal_02.png Graphic file (type png)
 <use ./figures/cal_02.png>
-Package pdftex.def Info: ./figures/cal_02.png  used on input line 53.
+Package pdftex.def Info: ./figures/cal_02.png  used on input line 60.
 (pdftex.def)             Requested size: 248.8998pt x 201.63484pt.
  [11
 
- <./figures/cal_02.png>]
-<./figures/sem_00.jpg, id=351, 3661.68pt x 2746.26pt>
+ <./figures/cal_02.png (PNG copy)>]
+<./figures/sem_00.jpg, id=393, 3661.68pt x 2746.26pt>
 File: ./figures/sem_00.jpg Graphic file (type jpg)
 <use ./figures/sem_00.jpg>
-Package pdftex.def Info: ./figures/sem_00.jpg  used on input line 61.
-(pdftex.def)             Requested size: 342.2953pt x 256.70695pt.
+Package pdftex.def Info: ./figures/sem_00.jpg  used on input line 68.
+(pdftex.def)             Requested size: 342.4196pt x 256.79077pt.
 
-Overfull \vbox (35.12502pt too high) detected at line 61
+Overfull \vbox (32.24033pt too high) detected at line 68
  []
 
 [12
 
- <./figures/sem_00.jpg>] [13
+ <./figures/sem_00.jpg>]
+<./figures/res_01.png, id=419, 1166.4378pt x 1173.6648pt>
+File: ./figures/res_01.png Graphic file (type png)
+<use ./figures/res_01.png>
+Package pdftex.def Info: ./figures/res_01.png  used on input line 77.
+(pdftex.def)             Requested size: 198.2918pt x 199.52037pt.
+ [13
+
+ <./figures/res_01.png>])
+(./slides/03_analyse.tex
+<./figures/res_02.png, id=448, 1190.2869pt x 1174.3875pt>
+File: ./figures/res_02.png Graphic file (type png)
+<use ./figures/res_02.png>
+Package pdftex.def Info: ./figures/res_02.png  used on input line 7.
+(pdftex.def)             Requested size: 238.05316pt x 234.87334pt.
+
+Overfull \vbox (2.59425pt too high) detected at line 7
+ []
+
+[14
+
+ <./figures/res_02.png>]) (./slides/04_conclusion.tex [15
+
+])
+(./slides/05_annexe.tex [16
 
 ])
 \tf@nav=\write8
@@ -1612,16 +1640,16 @@ Overfull \vbox (35.12502pt too high) detected at line 61
 
  (./fichier_principal.aux)
 Package rerunfilecheck Info: File `fichier_principal.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+(rerunfilecheck)             Checksum: 0AF7F879C26BD89D99F53565ECD494F1;1360.
  ) 
 Here is how much of TeX's memory you used:
- 31906 strings out of 478268
- 652620 string characters out of 5836864
- 953490 words of memory out of 5000000
- 49394 multiletter control sequences out of 15000+600000
+ 32048 strings out of 478268
+ 655658 string characters out of 5836864
+ 954038 words of memory out of 5000000
+ 49511 multiletter control sequences out of 15000+600000
  480205 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,15n,122p,478b,601s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,15n,122p,476b,810s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts/enc/dvips/cm-sup
 er/cm-super-t1.enc}</usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmex10.pfb></usr/local/Cellar/texlive/20220321_3/shar
@@ -1642,10 +1670,10 @@ local/Cellar/texlive/20220321_3/share/texmf-dist/fonts/type1/public/cm-super/sf
 rm1095.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-dist/fonts/type1/p
 ublic/cm-super/sfrm1440.pfb></usr/local/Cellar/texlive/20220321_3/share/texmf-d
 ist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on fichier_principal.pdf (13 pages, 5417803 bytes).
+Output written on fichier_principal.pdf (16 pages, 5485412 bytes).
 PDF statistics:
- 475 PDF objects out of 1000 (max. 8388607)
- 400 compressed objects within 4 object streams
- 27 named destinations out of 1000 (max. 500000)
- 134 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 603 PDF objects out of 1000 (max. 8388607)
+ 521 compressed objects within 6 object streams
+ 41 named destinations out of 1000 (max. 500000)
+ 214 words of extra memory for PDF output out of 10000 (max. 10000000)
 
