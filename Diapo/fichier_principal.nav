@@ -38,21 +38,51 @@
 \headcommand {\beamer@framepages {13}{13}}
 \headcommand {\beamer@sectionpages {5}{13}}
 \headcommand {\beamer@subsectionpages {12}{13}}
-\headcommand {\sectionentry {3}{Analyse et interpretations des résultats}{14}{Analyse et interpretations des résultats}{0}}
-\headcommand {\slideentry {3}{0}{1}{14/14}{}{0}}
+\headcommand {\sectionentry {3}{Visualisation des resulats expérimentaux - modèle physique}{14}{Visualisation des resulats expérimentaux - modèle physique}{0}}
+\headcommand {\beamer@subsectionpages {14}{13}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{14}{Visualisations}}
+\headcommand {\slideentry {3}{1}{1}{14/14}{Visualisations}{0}}
 \headcommand {\beamer@framepages {14}{14}}
-\headcommand {\beamer@sectionpages {14}{14}}
-\headcommand {\beamer@subsectionpages {14}{14}}
-\headcommand {\sectionentry {4}{Conclusion}{15}{Conclusion}{0}}
-\headcommand {\slideentry {4}{0}{1}{15/15}{}{0}}
+\headcommand {\slideentry {3}{1}{2}{15/15}{Visualisations}{0}}
 \headcommand {\beamer@framepages {15}{15}}
-\headcommand {\beamer@sectionpages {15}{15}}
-\headcommand {\beamer@subsectionpages {15}{15}}
-\headcommand {\sectionentry {5}{Annexe}{16}{Annexe}{0}}
-\headcommand {\slideentry {5}{0}{1}{16/16}{}{0}}
+\headcommand {\slideentry {3}{1}{3}{16/16}{Visualisations}{0}}
 \headcommand {\beamer@framepages {16}{16}}
-\headcommand {\beamer@partpages {1}{16}}
-\headcommand {\beamer@subsectionpages {16}{16}}
-\headcommand {\beamer@sectionpages {16}{16}}
-\headcommand {\beamer@documentpages {16}}
-\headcommand {\gdef \inserttotalframenumber {16}}
+\headcommand {\beamer@subsectionpages {14}{16}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{17}{Modèle physique}}
+\headcommand {\slideentry {3}{2}{1}{17/17}{Modèle physique}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\slideentry {3}{2}{2}{18/18}{Modèle physique}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\beamer@sectionpages {14}{18}}
+\headcommand {\beamer@subsectionpages {17}{18}}
+\headcommand {\sectionentry {4}{Conclusion}{19}{Conclusion}{0}}
+\headcommand {\slideentry {4}{0}{1}{19/19}{}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\beamer@sectionpages {19}{19}}
+\headcommand {\beamer@subsectionpages {19}{19}}
+\headcommand {\sectionentry {5}{Annexe}{20}{Annexe}{0}}
+\headcommand {\beamer@subsectionpages {20}{19}}
+\headcommand {\beamer@subsectionentry {0}{5}{1}{20}{Photos}}
+\headcommand {\slideentry {5}{1}{1}{20/20}{Photos}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\slideentry {5}{1}{2}{21/21}{Photos}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\slideentry {5}{1}{3}{22/22}{Photos}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\slideentry {5}{1}{4}{23/23}{Photos}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\slideentry {5}{1}{5}{24/24}{Photos}{0}}
+\headcommand {\beamer@framepages {24}{24}}
+\headcommand {\beamer@subsectionpages {20}{24}}
+\headcommand {\beamer@subsectionentry {0}{5}{2}{25}{Codes}}
+\headcommand {\slideentry {5}{2}{1}{25/25}{Codes}{0}}
+\headcommand {\beamer@framepages {25}{25}}
+\headcommand {\slideentry {5}{2}{2}{26/26}{Codes}{0}}
+\headcommand {\beamer@framepages {26}{26}}
+\headcommand {\slideentry {5}{2}{3}{27/27}{Codes}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\beamer@partpages {1}{27}}
+\headcommand {\beamer@subsectionpages {25}{27}}
+\headcommand {\beamer@sectionpages {20}{27}}
+\headcommand {\beamer@documentpages {27}}
+\headcommand {\gdef \inserttotalframenumber {27}}

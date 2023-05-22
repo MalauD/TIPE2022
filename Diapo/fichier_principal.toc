@@ -1,9 +1,13 @@
-\babel@toc {french}{}\relax 
+\babel@toc {french}{}
 \beamer@sectionintoc {1}{Présentation du problème}{4}{0}{1}
 \beamer@sectionintoc {2}{Relevés expérimentaux}{5}{0}{2}
 \beamer@subsectionintoc {2}{1}{Présentation du dispositf expérimental}{5}{0}{2}
 \beamer@subsectionintoc {2}{2}{Calibration du dispositif}{8}{0}{2}
 \beamer@subsectionintoc {2}{3}{Premiers résultats}{12}{0}{2}
-\beamer@sectionintoc {3}{Analyse et interpretations des résultats}{14}{0}{3}
-\beamer@sectionintoc {4}{Conclusion}{15}{0}{4}
-\beamer@sectionintoc {5}{Annexe}{16}{0}{5}
+\beamer@sectionintoc {3}{Visualisation des resulats expérimentaux - modèle physique}{14}{0}{3}
+\beamer@subsectionintoc {3}{1}{Visualisations}{14}{0}{3}
+\beamer@subsectionintoc {3}{2}{Modèle physique}{17}{0}{3}
+\beamer@sectionintoc {4}{Conclusion}{19}{0}{4}
+\beamer@sectionintoc {5}{Annexe}{20}{0}{5}
+\beamer@subsectionintoc {5}{1}{Photos}{20}{0}{5}
+\beamer@subsectionintoc {5}{2}{Codes}{25}{0}{5}
