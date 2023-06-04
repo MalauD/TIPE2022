@@ -1,4 +1,4 @@
-\section{Visualisation des resulats expérimentaux - modèle physique}
+\section{Visualisation des résulats expérimentaux et modèle physique}
 \subsection{Visualisations}
 \begin{frame}
     \frametitle{Quelques visualisations 1/3}
@@ -12,24 +12,24 @@
     \end{figure}
 \end{frame}
 \begin{frame}{Quelques visualisations 3/3}
-    On garde maintenant les courbes moyennes pour chaque revètement:
+    Gardons ici les pics moyens pour chaque revêtement et type de chaussures:
     \begin{figure}
         \includegraphics[scale=0.5]{./figures/res_04.png}
     \end{figure}
 \end{frame}
 \subsection{Modèle physique}
 \begin{frame}{Rhéologie}
-    L'os est un matériaux viscoélastique, on adopte le modèle de Kelvin-Voigt:
+    L'os est un matériau viscoélastique, utilisons le modèle de Kelvin-Voigt:
     \begin{figure}
         \includegraphics[scale=0.1]{./figures/rheo_00.png}
     \end{figure}
-    On établit l'équation différentielle suivante:
+    Nous établissons l'équation différentielle suivante:
     $$ \sigma = E \times \varepsilon + \eta \times \frac{d\varepsilon}{dt}$$
     Et la fonction de transfert associée:
     $$ H(\omega) = \frac{1}{E+i\omega\eta}$$
 \end{frame}
 \begin{frame}{Résultats}
-    Après avoir appliqué la transformée de Fourier aux données et utilisé la fonction de transfert, on obtient:
+    Après avoir appliqué la transformée de Fourier aux données et utilisé la fonction de transfert, voici les résultats :
     \begin{figure}
         \includegraphics[scale=0.5]{./figures/rheo_05.png}
     \end{figure}
