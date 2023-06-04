@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.30)  22 MAY 2023 22:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.30)  4 JUN 2023 11:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1276,7 +1276,29 @@ File: md-frame-1.mdf 2013/07/01\ 1.9b: md-frame-1
 \mdf@verticalmarginwhole@length=\skip140
 \mdf@horizontalspaceofbox=\skip141
 \mdfsubtitleheight=\skip142
-\mdfsub
+\mdfsubs v1.83 String manipulations (CT)
+) (/usr/share/texlive/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip76
+\fb@frw=\dimen325
+\fb@frh=\dimen326
+\FrameRule=\dimen327
+\FrameSep=\dimen328
+) (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count380
+\float@exts=\toks53
+\float@box=\box83
+\@float@everytoks=\toks54
+\@floatcapt=\box84
+)
+\minted@appexistsfile=\read5
+\minted@bgbox=\box85
+\minted@code=\write6
+\c@minted@FancyVerbLineTemp=\count381
+\c@minted@pygmentizecounter=\count382
+\@float@every@listing=\toks55
+\c@listing=\count383
 )
 runsystem(mkdir -p _minted-fichier_principal)...disabled (restricted).
 
@@ -1300,36 +1322,15 @@ Pass the -shell-escape flag to LaTeX. Refer to the minted.sty documentation for 
 
  
 Here is how much of TeX's memory you used:
- 24612 strings out of 476788
- 453182 string characters out of 5822421
- 820058 words of memory out of 6000000
- 44250 multiletter control sequences out of 15000+600000
+ 25788 strings out of 476788
+ 470702 string characters out of 5822421
+ 838596 words of memory out of 6000000
+ 45414 multiletter control sequences out of 15000+600000
  406796 words of font info for 31 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 128i,2n,126p,466b,282s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 128i,2n,126p,466b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
 No pages of output.
-unsystem(which pygmentize && touch fichier_principal.aex)...disabled (restrict
-ed).
-
-
-! Package minted Error: You must have `pygmentize' installed to use this packag
-e.
-
-See the minted package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.14 \begin{document}
-                     
-Refer to the installation instructions in the minted documentation for more inf
-ormation.
-
-(./fichier_principal.aux)
-\openout1 = `fichier_principal.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+ont Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
 LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
@@ -1591,7 +1592,7 @@ Package pdftex.def Info: ./figures/rheo_00.png  used on input line 30.
  [17
 
  <./figures/rheo_00.png>]
-<./figures/rheo_05.png, id=583, 611.4042pt x 379.4175pt>
+<./figures/rheo_05.png, id=584, 611.4042pt x 379.4175pt>
 File: ./figures/rheo_05.png Graphic file (type png)
 <use ./figures/rheo_05.png>
 Package pdftex.def Info: ./figures/rheo_05.png  used on input line 36.
@@ -1602,7 +1603,7 @@ Package pdftex.def Info: ./figures/rheo_05.png  used on input line 36.
 
 ])
 (./slides/05_annexe.tex
-<./figures/chau_02.jpg, id=637, 3035.34pt x 4047.12pt>
+<./figures/chau_02.jpg, id=638, 3035.34pt x 4047.12pt>
 File: ./figures/chau_02.jpg Graphic file (type jpg)
 <use ./figures/chau_02.jpg>
 Package pdftex.def Info: ./figures/chau_02.jpg  used on input line 8.
@@ -1610,7 +1611,7 @@ Package pdftex.def Info: ./figures/chau_02.jpg  used on input line 8.
  [20
 
  <./figures/chau_02.jpg>]
-<./figures/carte_02.jpg, id=665, 3661.68pt x 2746.26pt>
+<./figures/carte_02.jpg, id=666, 3661.68pt x 2746.26pt>
 File: ./figures/carte_02.jpg Graphic file (type jpg)
 <use ./figures/carte_02.jpg>
 Package pdftex.def Info: ./figures/carte_02.jpg  used on input line 14.
@@ -1618,7 +1619,7 @@ Package pdftex.def Info: ./figures/carte_02.jpg  used on input line 14.
  [21
 
  <./figures/carte_02.JPG>]
-<./figures/sem_03.jpg, id=692, 3661.68pt x 1837.86626pt>
+<./figures/sem_03.jpg, id=693, 3661.68pt x 1837.86626pt>
 File: ./figures/sem_03.jpg Graphic file (type jpg)
 <use ./figures/sem_03.jpg>
 Package pdftex.def Info: ./figures/sem_03.jpg  used on input line 20.
@@ -1631,7 +1632,7 @@ Overfull \hbox (23.76985pt too wide) in paragraph at lines 20--20
 [22
 
  <./figures/sem_03.JPG>]
-<./figures/rheo_03.png, id=720, 639.5895pt x 379.4175pt>
+<./figures/rheo_03.png, id=721, 639.5895pt x 379.4175pt>
 File: ./figures/rheo_03.png Graphic file (type png)
 <use ./figures/rheo_03.png>
 Package pdftex.def Info: ./figures/rheo_03.png  used on input line 26.
@@ -1639,7 +1640,7 @@ Package pdftex.def Info: ./figures/rheo_03.png  used on input line 26.
  [23
 
  <./figures/rheo_03.png>]
-<./figures/rheo_04.png, id=747, 623.6901pt x 379.4175pt>
+<./figures/rheo_04.png, id=748, 623.6901pt x 379.4175pt>
 File: ./figures/rheo_04.png Graphic file (type png)
 <use ./figures/rheo_04.png>
 Package pdftex.def Info: ./figures/rheo_04.png  used on input line 32.
@@ -1700,18 +1701,19 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist
 type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/
-sfbx0600.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfcc060
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on fichier_principal.pdf (27 pages, 12218731 bytes).
+/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbol
+s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfbx060
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfcc0600.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/cm-super/sftt1095.pfb>
+Output written on fichier_principal.pdf (27 pages, 12229433 bytes).
 PDF statistics:
- 926 PDF objects out of 1000 (max. 8388607)
- 829 compressed objects within 9 object streams
+ 930 PDF objects out of 1000 (max. 8388607)
+ 832 compressed objects within 9 object streams
  67 named destinations out of 1000 (max. 500000)
  291 words of extra memory for PDF output out of 10000 (max. 10000000)
 

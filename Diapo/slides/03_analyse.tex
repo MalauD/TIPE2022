@@ -26,10 +26,10 @@
     Nous établissons l'équation différentielle suivante:
     $$ \sigma = E \times \varepsilon + \eta \times \frac{d\varepsilon}{dt}$$
     Et la fonction de transfert associée:
-    $$ H(\omega) = \frac{1}{E+i\omega\eta}$$
+    $$ H(\omega) = \frac{1}{E+i\omega\eta} \quad avec \quad E=18 \cdot 10^9 GPa \quad \eta = 218,4 Pa \cdot sec^{-1}$$
 \end{frame}
 \begin{frame}{Résultats}
-    Après avoir appliqué la transformée de Fourier aux données et utilisé la fonction de transfert, voici les résultats :
+    Puisque $ \omega \ll 10^3 rad \cdot sec^{-1}$, nous avons $ H(\omega) \approx \frac{1}{E}$ on obtient donc:
     \begin{figure}
         \includegraphics[scale=0.5]{./figures/rheo_05.png}
     \end{figure}
