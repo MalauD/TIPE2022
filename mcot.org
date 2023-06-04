@@ -40,3 +40,10 @@ Je me propose:
 *Thèse de Caroline DIVERT :* /Influence du chaussage sur les caractéristiques mécaniques et le coût énergétique de la course à pied/
 *** Référence 3
 *Thèse de Tristan Tarrade :* /Conception et fabrication additive de semelles orthopédiques: simulation numérique, évaluation biomécanique et système expert/
+* Déroulé Opérationnel du TIPE
+ * Recherche et réflexion sur un dispositif expérimental pouvant répondre à la problématique.
+ * Conception et réalisation du circuit éléctronique.
+ * Calibration en utilisant une régression linéaire. Echec:données non fiables pour des faibles valeurs de pression.
+ * Solution: programmation d'un algorithme d'ajustement de courbe pour la calibration
+ * Relevés sur surfaces variées avec différentes chaussures.
+ * Exploitation des mesures et établissement d'un modèle rhéologique.
