@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.30)  5 JUN 2023 17:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.30)  5 JUN 2023 19:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1480,14 +1480,14 @@ Overfull \vbox (42.42523pt too high) detected at line 18
 [6
 
  <./figures/carte_00.JPG>]
-<./figures/cal_00.png, id=274, 1096.095pt x 934.49126pt>
-File: ./figures/cal_00.png Graphic file (type png)
-<use ./figures/cal_00.png>
-Package pdftex.def Info: ./figures/cal_00.png  used on input line 26.
-(pdftex.def)             Requested size: 219.21512pt x 186.89494pt.
+<./figures/cal_03.png, id=274, 789.1884pt x 672.8337pt>
+File: ./figures/cal_03.png Graphic file (type png)
+<use ./figures/cal_03.png>
+Package pdftex.def Info: ./figures/cal_03.png  used on input line 26.
+(pdftex.def)             Requested size: 157.83487pt x 134.56435pt.
  [7
 
- <./figures/cal_00.png (PNG copy)>]
+ <./figures/cal_03.png>]
 LaTeX Font Info:    Trying to load font information for U+msa on input line 36.
 
 
@@ -1510,29 +1510,29 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 ] [9
 
 ]
-<./figures/cal_01.png, id=362, 795.6927pt x 672.111pt>
-File: ./figures/cal_01.png Graphic file (type png)
-<use ./figures/cal_01.png>
-Package pdftex.def Info: ./figures/cal_01.png  used on input line 63.
+<./figures/cal_04.png, id=364, 795.6927pt x 672.111pt>
+File: ./figures/cal_04.png Graphic file (type png)
+<use ./figures/cal_04.png>
+Package pdftex.def Info: ./figures/cal_04.png  used on input line 63.
 (pdftex.def)             Requested size: 238.70966pt x 201.63484pt.
  [10
 
- <./figures/cal_01.png (PNG copy)>]
+ <./figures/cal_04.png>]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 7
 1.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-<./figures/cal_02.png, id=389, 829.6596pt x 672.111pt>
+<./figures/cal_02.png, id=392, 829.6596pt x 672.111pt>
 File: ./figures/cal_02.png Graphic file (type png)
 <use ./figures/cal_02.png>
 Package pdftex.def Info: ./figures/cal_02.png  used on input line 71.
 (pdftex.def)             Requested size: 248.8998pt x 201.63484pt.
- [11
+
+[11
 
  <./figures/cal_02.png (PNG copy)>]
-<./figures/sem_00.jpg, id=416, 3661.68pt x 2746.26pt>
+<./figures/sem_00.jpg, id=419, 3661.68pt x 2746.26pt>
 File: ./figures/sem_00.jpg Graphic file (type jpg)
 <use ./figures/sem_00.jpg>
 Package pdftex.def Info: ./figures/sem_00.jpg  used on input line 79.
@@ -1544,7 +1544,7 @@ Overfull \vbox (32.24033pt too high) detected at line 79
 [12
 
  <./figures/sem_00.JPG>]
-<./figures/res_01.png, id=442, 1727.253pt x 893.9799pt>
+<./figures/res_01.png, id=445, 1727.253pt x 893.9799pt>
 File: ./figures/res_01.png Graphic file (type png)
 <use ./figures/res_01.png>
 Package pdftex.def Info: ./figures/res_01.png  used on input line 88.
@@ -1557,7 +1557,7 @@ Overfull \hbox (3.02489pt too wide) in paragraph at lines 88--88
 [13
 
  <./figures/res_01.png>]) (./slides/03_analyse.tex
-<./figures/res_02.png, id=471, 1751.1021pt x 894.7026pt>
+<./figures/res_02.png, id=473, 1751.1021pt x 894.7026pt>
 File: ./figures/res_02.png Graphic file (type png)
 <use ./figures/res_02.png>
 Package pdftex.def Info: ./figures/res_02.png  used on input line 8.
@@ -1570,7 +1570,7 @@ Overfull \hbox (7.79462pt too wide) in paragraph at lines 8--8
 [14
 
  <./figures/res_02.png>]
-<./figures/res_03.png, id=502, 1751.1021pt x 894.7026pt>
+<./figures/res_03.png, id=504, 1751.1021pt x 894.7026pt>
 File: ./figures/res_03.png Graphic file (type png)
 <use ./figures/res_03.png>
 Package pdftex.def Info: ./figures/res_03.png  used on input line 13.
@@ -1583,7 +1583,7 @@ Overfull \hbox (7.79462pt too wide) in paragraph at lines 13--13
 [15
 
  <./figures/res_03.png>]
-<./figures/res_04.png, id=529, 419.166pt x 316.5426pt>
+<./figures/res_04.png, id=531, 419.166pt x 316.5426pt>
 File: ./figures/res_04.png Graphic file (type png)
 <use ./figures/res_04.png>
 Package pdftex.def Info: ./figures/res_04.png  used on input line 19.
@@ -1591,7 +1591,7 @@ Package pdftex.def Info: ./figures/res_04.png  used on input line 19.
  [16
 
  <./figures/res_04.png>]
-<./figures/rheo_00.png, id=556, 215.3646pt x 143.8173pt>
+<./figures/rheo_00.png, id=558, 215.3646pt x 143.8173pt>
 File: ./figures/rheo_00.png Graphic file (type png)
 <use ./figures/rheo_00.png>
 Package pdftex.def Info: ./figures/rheo_00.png  used on input line 30.
@@ -1599,7 +1599,7 @@ Package pdftex.def Info: ./figures/rheo_00.png  used on input line 30.
  [17
 
  <./figures/rheo_00.png>]
-<./figures/rheo_05.png, id=584, 611.4042pt x 379.4175pt>
+<./figures/rheo_05.png, id=586, 611.4042pt x 379.4175pt>
 File: ./figures/rheo_05.png Graphic file (type png)
 <use ./figures/rheo_05.png>
 Package pdftex.def Info: ./figures/rheo_05.png  used on input line 36.
@@ -1610,7 +1610,7 @@ Package pdftex.def Info: ./figures/rheo_05.png  used on input line 36.
 
 ])
 (./slides/05_annexe.tex
-<./figures/chau_02.jpg, id=638, 3035.34pt x 4047.12pt>
+<./figures/chau_02.jpg, id=640, 3035.34pt x 4047.12pt>
 File: ./figures/chau_02.jpg Graphic file (type jpg)
 <use ./figures/chau_02.jpg>
 Package pdftex.def Info: ./figures/chau_02.jpg  used on input line 8.
@@ -1618,7 +1618,7 @@ Package pdftex.def Info: ./figures/chau_02.jpg  used on input line 8.
  [20
 
  <./figures/chau_02.jpg>]
-<./figures/carte_02.jpg, id=666, 3661.68pt x 2746.26pt>
+<./figures/carte_02.jpg, id=668, 3661.68pt x 2746.26pt>
 File: ./figures/carte_02.jpg Graphic file (type jpg)
 <use ./figures/carte_02.jpg>
 Package pdftex.def Info: ./figures/carte_02.jpg  used on input line 14.
@@ -1626,7 +1626,7 @@ Package pdftex.def Info: ./figures/carte_02.jpg  used on input line 14.
  [21
 
  <./figures/carte_02.JPG>]
-<./figures/sem_03.jpg, id=693, 3661.68pt x 1837.86626pt>
+<./figures/sem_03.jpg, id=695, 3661.68pt x 1837.86626pt>
 File: ./figures/sem_03.jpg Graphic file (type jpg)
 <use ./figures/sem_03.jpg>
 Package pdftex.def Info: ./figures/sem_03.jpg  used on input line 20.
@@ -1639,7 +1639,7 @@ Overfull \hbox (23.76985pt too wide) in paragraph at lines 20--20
 [22
 
  <./figures/sem_03.JPG>]
-<./figures/rheo_03.png, id=721, 639.5895pt x 379.4175pt>
+<./figures/rheo_03.png, id=723, 639.5895pt x 379.4175pt>
 File: ./figures/rheo_03.png Graphic file (type png)
 <use ./figures/rheo_03.png>
 Package pdftex.def Info: ./figures/rheo_03.png  used on input line 26.
@@ -1647,7 +1647,7 @@ Package pdftex.def Info: ./figures/rheo_03.png  used on input line 26.
  [23
 
  <./figures/rheo_03.png>]
-<./figures/rheo_04.png, id=748, 623.6901pt x 379.4175pt>
+<./figures/rheo_04.png, id=750, 623.6901pt x 379.4175pt>
 File: ./figures/rheo_04.png Graphic file (type png)
 <use ./figures/rheo_04.png>
 Package pdftex.def Info: ./figures/rheo_04.png  used on input line 32.
@@ -1694,7 +1694,7 @@ Package rerunfilecheck Info: File `fichier_principal.out' has not changed.
 Here is how much of TeX's memory you used:
  32439 strings out of 480806
  609282 string characters out of 5905151
- 1202682 words of memory out of 6000000
+ 1202681 words of memory out of 6000000
  48998 multiletter control sequences out of 15000+600000
  415497 words of font info for 59 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1717,9 +1717,9 @@ live/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/cm-super/sftt1095.pfb>
-Output written on fichier_principal.pdf (27 pages, 12289933 bytes).
+Output written on fichier_principal.pdf (27 pages, 12341540 bytes).
 PDF statistics:
- 930 PDF objects out of 1000 (max. 8388607)
+ 932 PDF objects out of 1000 (max. 8388607)
  832 compressed objects within 9 object streams
  67 named destinations out of 1000 (max. 500000)
  291 words of extra memory for PDF output out of 10000 (max. 10000000)
