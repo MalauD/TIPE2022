@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.30)  4 JUN 2023 15:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.30)  5 JUN 2023 17:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1276,61 +1276,62 @@ File: md-frame-1.mdf 2013/07/01\ 1.9b: md-frame-1
 \mdf@verticalmarginwhole@length=\skip140
 \mdf@horizontalspaceofbox=\skip141
 \mdfsubtitleheight=\skip142
-\mdfsubs v1.83 String manipulations (CT)
-) (/usr/share/texlive/texmf-dist/tex/latex/framed/framed.sty
-Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
-\OuterFrameSep=\skip76
-\fb@frw=\dimen325
-\fb@frh=\dimen326
-\FrameRule=\dimen327
-\FrameSep=\dimen328
-) (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count380
-\float@exts=\toks53
-\float@box=\box83
-\@float@everytoks=\toks54
-\@floatcapt=\box84
+\mdfsubsubtitleheight=\skip143
+\c@mdfcountframes=\count398
+
+****** mdframed patching \endmdf@trivlist
+
+****** -- failed******
+
+\mdf@envdepth=\count399
+\c@mdf@env@i=\count400
+\c@mdf@env@ii=\count401
+\c@mdf@zref@counter=\count402
+Package zref Info: New property: mdf@pagevalue on input line 895.
 )
-\minted@appexistsfile=\read5
-\minted@bgbox=\box85
-\minted@code=\write6
-\c@minted@FancyVerbLineTemp=\count381
-\c@minted@pygmentizecounter=\count382
-\@float@every@listing=\toks55
-\c@listing=\count383
-)
-runsystem(mkdir -p _minted-fichier_principal)...disabled (restricted).
+(./preambule/macros.tex)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerthemeMadrid.sty
+
+! LaTeX Error: Option clash for package beamerinnerthemerounded.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.20 \useinnertheme[shadow]{rounded}
+                                    
+The package beamerinnerthemerounded has already been loaded with options:
+  [shadow=true]
+There has now been an attempt to load it with options
+  [shadow]
+Adding the global options:
+  shadow=true,shadow
+to your \documentclass declaration may fix this.
+Try typing  <return>  to proceed.
+
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerouterthemeinfolines.sty))
+runsystem(which pygmentize && touch fichier_principal.aex)...disabled (restrict
+ed).
 
 
-
-! Package minted Error: You must invoke LaTeX with the -shell-escape flag.
+! Package minted Error: You must have `pygmentize' installed to use this packag
+e.
 
 See the minted package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.24 \usemintedstyle
-                    {friendly}
-? 
-! Emergency stop.
- ...                                              
-                                                  
-l.24 \usemintedstyle
-                    {friendly}
-Pass the -shell-escape flag to LaTeX. Refer to the minted.sty documentation for more information.
+l.14 \begin{document}
+                     
+Refer to the installation instructions in the minted documentation for more inf
+ormation.
 
- 
-Here is how much of TeX's memory you used:
- 25788 strings out of 476788
- 470702 string characters out of 5822421
- 838596 words of memory out of 6000000
- 45414 multiletter control sequences out of 15000+600000
- 406796 words of font info for 31 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 128i,2n,126p,466b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
-No pages of output.
-ont Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+(./fichier_principal.aux)
+\openout1 = `fichier_principal.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
 LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
@@ -1547,14 +1548,10 @@ Overfull \vbox (32.24033pt too high) detected at line 79
 File: ./figures/res_01.png Graphic file (type png)
 <use ./figures/res_01.png>
 Package pdftex.def Info: ./figures/res_01.png  used on input line 88.
-(pdftex.def)             Requested size: 379.99684pt x 196.67618pt.
+(pdftex.def)             Requested size: 345.44449pt x 178.79282pt.
 
-Overfull \hbox (37.57724pt too wide) in paragraph at lines 88--88
+Overfull \hbox (3.02489pt too wide) in paragraph at lines 88--88
  [] 
- []
-
-
-Overfull \vbox (5.19711pt too high) detected at line 88
  []
 
 [13
@@ -1564,14 +1561,10 @@ Overfull \vbox (5.19711pt too high) detected at line 88
 File: ./figures/res_02.png Graphic file (type png)
 <use ./figures/res_02.png>
 Package pdftex.def Info: ./figures/res_02.png  used on input line 8.
-(pdftex.def)             Requested size: 437.77446pt x 223.6751pt.
+(pdftex.def)             Requested size: 350.21422pt x 178.93735pt.
 
-Overfull \hbox (95.35486pt too wide) in paragraph at lines 8--8
+Overfull \hbox (7.79462pt too wide) in paragraph at lines 8--8
  [] 
- []
-
-
-Overfull \vbox (4.99602pt too high) detected at line 8
  []
 
 [14
@@ -1581,14 +1574,10 @@ Overfull \vbox (4.99602pt too high) detected at line 8
 File: ./figures/res_03.png Graphic file (type png)
 <use ./figures/res_03.png>
 Package pdftex.def Info: ./figures/res_03.png  used on input line 13.
-(pdftex.def)             Requested size: 437.77446pt x 223.6751pt.
+(pdftex.def)             Requested size: 350.21422pt x 178.93735pt.
 
-Overfull \hbox (95.35486pt too wide) in paragraph at lines 13--13
+Overfull \hbox (7.79462pt too wide) in paragraph at lines 13--13
  [] 
- []
-
-
-Overfull \vbox (4.99602pt too high) detected at line 13
  []
 
 [15
@@ -1602,11 +1591,11 @@ Package pdftex.def Info: ./figures/res_04.png  used on input line 19.
  [16
 
  <./figures/res_04.png>]
-<./figures/rheo_00.png, id=556, 1204.5pt x 903.375pt>
+<./figures/rheo_00.png, id=556, 215.3646pt x 143.8173pt>
 File: ./figures/rheo_00.png Graphic file (type png)
 <use ./figures/rheo_00.png>
 Package pdftex.def Info: ./figures/rheo_00.png  used on input line 30.
-(pdftex.def)             Requested size: 120.45705pt x 90.34279pt.
+(pdftex.def)             Requested size: 107.68202pt x 71.90846pt.
  [17
 
  <./figures/rheo_00.png>]
@@ -1705,7 +1694,7 @@ Package rerunfilecheck Info: File `fichier_principal.out' has not changed.
 Here is how much of TeX's memory you used:
  32439 strings out of 480806
  609282 string characters out of 5905151
- 1202679 words of memory out of 6000000
+ 1202682 words of memory out of 6000000
  48998 multiletter control sequences out of 15000+600000
  415497 words of font info for 59 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1728,7 +1717,7 @@ live/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/cm-super/sftt1095.pfb>
-Output written on fichier_principal.pdf (27 pages, 12294617 bytes).
+Output written on fichier_principal.pdf (27 pages, 12289933 bytes).
 PDF statistics:
  930 PDF objects out of 1000 (max. 8388607)
  832 compressed objects within 9 object streams
