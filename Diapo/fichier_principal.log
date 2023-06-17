@@ -1276,62 +1276,61 @@ File: md-frame-1.mdf 2013/07/01\ 1.9b: md-frame-1
 \mdf@verticalmarginwhole@length=\skip140
 \mdf@horizontalspaceofbox=\skip141
 \mdfsubtitleheight=\skip142
-\mdfsubsubtitleheight=\skip143
-\c@mdfcountframes=\count398
-
-****** mdframed patching \endmdf@trivlist
-
-****** -- failed******
-
-\mdf@envdepth=\count399
-\c@mdf@env@i=\count400
-\c@mdf@env@ii=\count401
-\c@mdf@zref@counter=\count402
-Package zref Info: New property: mdf@pagevalue on input line 895.
+\mdfsubs v1.83 String manipulations (CT)
+) (/usr/share/texlive/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip76
+\fb@frw=\dimen325
+\fb@frh=\dimen326
+\FrameRule=\dimen327
+\FrameSep=\dimen328
+) (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count380
+\float@exts=\toks53
+\float@box=\box83
+\@float@everytoks=\toks54
+\@floatcapt=\box84
 )
-(./preambule/macros.tex)
-(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerthemeMadrid.sty
-
-! LaTeX Error: Option clash for package beamerinnerthemerounded.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.20 \useinnertheme[shadow]{rounded}
-                                    
-The package beamerinnerthemerounded has already been loaded with options:
-  [shadow=true]
-There has now been an attempt to load it with options
-  [shadow]
-Adding the global options:
-  shadow=true,shadow
-to your \documentclass declaration may fix this.
-Try typing  <return>  to proceed.
-
-(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerouterthemeinfolines.sty))
-runsystem(which pygmentize && touch fichier_principal.aex)...disabled (restrict
-ed).
+\minted@appexistsfile=\read5
+\minted@bgbox=\box85
+\minted@code=\write6
+\c@minted@FancyVerbLineTemp=\count381
+\c@minted@pygmentizecounter=\count382
+\@float@every@listing=\toks55
+\c@listing=\count383
+)
+runsystem(mkdir -p _minted-fichier_principal)...disabled (restricted).
 
 
-! Package minted Error: You must have `pygmentize' installed to use this packag
-e.
+
+! Package minted Error: You must invoke LaTeX with the -shell-escape flag.
 
 See the minted package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14 \begin{document}
-                     
-Refer to the installation instructions in the minted documentation for more inf
-ormation.
+l.24 \usemintedstyle
+                    {friendly}
+? 
+! Emergency stop.
+ ...                                              
+                                                  
+l.24 \usemintedstyle
+                    {friendly}
+Pass the -shell-escape flag to LaTeX. Refer to the minted.sty documentation for more information.
 
-(./fichier_principal.aux)
-\openout1 = `fichier_principal.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+ 
+Here is how much of TeX's memory you used:
+ 25788 strings out of 476788
+ 470702 string characters out of 5822421
+ 838596 words of memory out of 6000000
+ 45414 multiletter control sequences out of 15000+600000
+ 406796 words of font info for 31 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 128i,2n,126p,466b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
+No pages of output.
+ont Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
 LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
