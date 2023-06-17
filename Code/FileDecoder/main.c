@@ -17,7 +17,6 @@ int main(int argc, char *argv[])
 
     in = fopen(argv[1], "rb");
 
-    // Same name as input file, but with .csv extension instead of .TXT for the output
     char *outName = malloc(strlen(argv[1]) + 5);
     strcpy(outName, argv[1]);
     outName[strlen(argv[1]) - 4] = '\0';
@@ -44,7 +43,6 @@ int main(int argc, char *argv[])
             if (c == '#')
             {
                 offset = ftell(in);
-                // Try to see if the next 9 characters are also #
                 int i;
                 for (i = 0; i < 9; i++)
                 {

@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage[francais]{babel}
+\usepackage[a4paper, total={170mm,257mm}, left=20mm, top=20mm]{geometry}
+
+\title{Annexe TIPE}
+\author{Malaury DUTOUR - candidat 22977}
+\date{2022-2023}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Extraits du code embarqué}
+\subsection{Algorithme de descente de gradient}
+\lstinputlisting[language=C++]{../Code/Tipe/include/math/fitting/gradient_desc.hpp}
+\subsection{Manipulation des données}
+\lstinputlisting[language=C++]{../Code/Tipe/include/math/data_set.hpp}
+\subsection{Sauvergarde et réstitution des résultats de l'ajustemnt de courbe}
+\lstinputlisting[language=C++]{../Code/Tipe/include/config/config.hpp}
+\subsection{Exemple de configuration stockant les résultats de l'ajustement de courbe}
+\lstinputlisting{../Code/Notebooks/config.txt}
+
+\section{Extraction des données de la carte SD}
+\subsection{Code réalisant l'extraction}
+\lstinputlisting[language=C]{../Code/FileDecoder/main.c}
+\subsection{Extrait de la sortie du programme}
+\lstinputlisting[language=csv, linerange={0-10}]{../Code/FileDecoder/Test.csv}
+
+\end{document}
